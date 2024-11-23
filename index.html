@@ -20,11 +20,86 @@
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/countdown.css" />
+    <style>
+      h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      .timeline-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 20px;
+        position: relative;
+        width: 90%;
+      }
+
+      .emoji1,
+      .emoji2 {
+        font-size: 2rem; /* Größere Emojis */
+      }
+
+      .timeline {
+        position: relative;
+        flex-grow: 1;
+        height: 30px; /* Höherer Fortschrittsbalken */
+        background-color: var(--secondary-color);
+        border-radius: 15px;
+        overflow: hidden;
+        margin: 0 10px;
+      }
+
+      .progress {
+        height: 100%; /* Passt die Höhe des Fortschrittsbalkens an */
+        width: 0%;
+        background-color: var(--primary-color);
+        border-radius: 15px 0 0 15px;
+        transition: width 0.5s ease-in-out;
+      }
+
+      .timeline-text {
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        font-size: 1.2rem; /* Größere Schrift */
+        color: var(--white-color);
+        text-align: center;
+        font-weight: bold;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+
+      .emoji1,
+      .emoji2 {
+        font-size: 2rem;
+      }
+
+      a {
+        display: inline-block;
+        padding: 15px 30px;
+        margin-top: 20px;
+        background: #fff;
+        color: #9e3d1a;
+        font-weight: bold;
+        text-transform: uppercase;
+        border-radius: 10px;
+        text-decoration: none;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, background-color 0.3s ease;
+      }
+
+      a:hover {
+        background: #f1f2f2;
+        transform: scale(1.1);
+      }
+    </style>
   </head>
 
   <body>
     <h1>Adventskalender</h1>
-    <p></p>
     <div class="timeline-container">
       <span class="emoji1">🎊</span>
       <div class="timeline">
@@ -35,5 +110,6 @@
     </div>
     <a href="adventskalender/home.html">Zum Adventskalender</a>
     <script src="js/main.js"></script>
+    <script src="js/timeline.js"></script>
   </body>
 </html>
