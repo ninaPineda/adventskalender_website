@@ -20,41 +20,56 @@ document.addEventListener("DOMContentLoaded", () => {
   cards.forEach((card) => {
     card.addEventListener("click", () => {
       const currentRiddle = parseInt(card.id, 10); // ID des Feldes ist die Zahl
+      const today = new Date();
+      const currentDay = today.getDate(); // Aktueller Tag des Monats
+      const currentMonth = today.getMonth(); // 0-basiert (0 = Januar)
 
-      // Benutzer aus localStorage abrufen und aktualisieren
+      // Benutzer prüfen
       const userData = localStorage.getItem("user");
-      if (userData) {
-        const user = JSON.parse(userData);
-        const loggedIn = localStorage.getItem("loggedIn");
-
-        if (loggedIn) {
-          // Überprüfen, ob das aktuelle Rätsel gelöst werden darf
-          if (currentRiddle === user.finishedRiddles + 1) {
-            const today = new Date();
-
-            if (currentRiddle <= today.getDate() - 1) {
-              // Weiterleitung zur Rätselseite
-              user.currentRiddle = currentRiddle;
-              localStorage.setItem("user", JSON.stringify(user));
-              window.location.href = `day${currentRiddle}.html`;
-            } else {
-              showDecPopup("Na! Nicht so hastig! Es ist noch nicht so wei!");
-            }
-          } else if (currentRiddle <= user.finishedRiddles) {
-            window.location.href = `solved.html`;
-          } else {
-            showPopup(
-              `Rätsel ${currentRiddle} kann noch nicht gelöst werden. Löse zuerst Rätsel ${
-                user.finishedRiddles + 1
-              }.`,
-            );
-          }
-        } else {
-          showPopup("Bitte logge dich ein, um zu starten!");
-        }
-      } else {
+      if (!userData) {
         showPopup("Bitte logge dich ein, um zu starten!");
+        return;
       }
+
+      const user = JSON.parse(userData);
+      const loggedIn = localStorage.getItem("loggedIn");
+
+      if (!loggedIn) {
+        showPopup("Bitte logge dich ein, um zu starten!");
+        return;
+      }
+
+      // Prüfen, ob es Dezember ist
+      if (currentMonth !== 11) {
+        showDecPopup("Es ist noch nicht Dezember! Warte noch ein wenig.");
+        return;
+      }
+
+      // Prüfen, ob das Rätsel in der Zukunft liegt
+      if (currentRiddle > currentDay) {
+        showDecPopup("Na! Nicht so hastig! Es ist noch nicht so weit!");
+        return;
+      }
+
+      // Prüfen, ob die vorherigen Rätsel gelöst wurden
+      if (currentRiddle > user.finishedRiddles + 1) {
+        showDecPopup(
+          `Rätsel ${currentRiddle} kann noch nicht gelöst werden. Löse zuerst Rätsel ${
+            user.finishedRiddles + 1
+          }.`,
+        );
+        return;
+      }
+
+      if (currentRiddle <= user.finishedRiddles) {
+        window.location.href = `solved.html`;
+        return;
+      }
+
+      // Weiterleitung zur Rätselseite
+      user.currentRiddle = currentRiddle;
+      localStorage.setItem("user", JSON.stringify(user));
+      window.location.href = `day${currentRiddle}.html`;
     });
   });
 });
@@ -83,9 +98,15 @@ function showPopup(message) {
 // Funktion, um das Popup zu zeigen
 function showDecPopup(message) {
   const popup = document.getElementById("decPopup");
-  const popupMessage = document.getElementById("popupMessage");
+  const popupMessage = document.getElementById("decPopupMessage");
   popupMessage.textContent = message; // Nachricht setzen
   popup.style.display = "flex"; // Popup sichtbar machen
+}
+
+// Funktion, um das Popup zu schließen
+function closeDecPopup() {
+  const popup = document.getElementById("decPopup");
+  popup.style.display = "none"; // Popup verstecken
 }
 
 // Funktion, um das Popup zu schließen
@@ -96,6 +117,10 @@ function closePopup() {
 
 // Event-Listener für den Schließen-Button
 document.getElementById("closePopup").addEventListener("click", closePopup);
+document.getElementById("closeDecPopup").addEventListener(
+  "click",
+  closeDecPopup,
+);
 document.getElementById("loginPopup").addEventListener("click", goTo);
 
 function goTo() {
