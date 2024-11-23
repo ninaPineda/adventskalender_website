@@ -30,10 +30,16 @@ document.addEventListener("DOMContentLoaded", () => {
         if (loggedIn) {
           // Überprüfen, ob das aktuelle Rätsel gelöst werden darf
           if (currentRiddle === user.finishedRiddles + 1) {
-            // Weiterleitung zur Rätselseite
-            user.currentRiddle = currentRiddle;
-            localStorage.setItem("user", JSON.stringify(user));
-            window.location.href = `day${currentRiddle}.html`;
+            const today = new Date();
+
+            if (currentRiddle <= today.getDate() - 1) {
+              // Weiterleitung zur Rätselseite
+              user.currentRiddle = currentRiddle;
+              localStorage.setItem("user", JSON.stringify(user));
+              window.location.href = `day${currentRiddle}.html`;
+            } else {
+              showDecPopup("Na! Nicht so hastig! Es ist noch nicht so wei!");
+            }
           } else if (currentRiddle <= user.finishedRiddles) {
             window.location.href = `solved.html`;
           } else {
@@ -69,6 +75,14 @@ function setLoginText() {
 // Funktion, um das Popup zu zeigen
 function showPopup(message) {
   const popup = document.getElementById("errorPopup");
+  const popupMessage = document.getElementById("popupMessage");
+  popupMessage.textContent = message; // Nachricht setzen
+  popup.style.display = "flex"; // Popup sichtbar machen
+}
+
+// Funktion, um das Popup zu zeigen
+function showDecPopup(message) {
+  const popup = document.getElementById("decPopup");
   const popupMessage = document.getElementById("popupMessage");
   popupMessage.textContent = message; // Nachricht setzen
   popup.style.display = "flex"; // Popup sichtbar machen
