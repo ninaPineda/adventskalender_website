@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html lang="de">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Adventskalender</title>
-    <meta name="description" content="Weihnachtlicher Adventskalender für die Familie">
+    <meta
+      name="description"
+      content="Weihnachtlicher Adventskalender für die Familie"
+    />
 
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/main.css">
-</head>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
 
-<body>
-    <div class="container">
-        <h1>Adventskalender</h1>
-        <p class="description">Countdown bis Weihnachten</p>
-        <div class="countdown" id="countdown"></div>
+  <body>
+    <h1>Adventskalender</h1>
+    <p></p>
+    <div class="timeline-container">
+      <span class="emoji1">🎊</span>
+      <div class="timeline">
+        <div class="progress" id="progress"></div>
+        <span class="timeline-text" id="countdown-text"></span>
+      </div>
+      <span class="emoji2">🎄</span>
     </div>
-
+    <a href="adventskalender/home.html">Zum Adventskalender</a>
     <script src="js/main.js"></script>
-</body>
-
+  </body>
 </html>
-
