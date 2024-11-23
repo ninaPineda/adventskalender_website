@@ -1,0 +1,11 @@
+:root {
+    --primary-color: #9E3D1A; /* Weihnachtsgrün */
+    --primary-color-dark: #782e13; /* Weihnachtsgrün */
+    --secondary-color: #D9BFB1; /* Weihnachtliches Rot */
+    --tertiary-color: #9F8446;
+    --accent-color: #DFD9CC;
+    --white-color: #F1F2F2; /* Weiß */
+    --black-color: #414042; /* Schwarz */
+    --popup-bg-gradient: radial-gradient(circle, #414042, #212022);
+    --other-gradient: linear-gradient(135deg, #9E3D1A, #9F8446, #414042);
+}
