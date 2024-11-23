@@ -1,89 +1,402 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const cards = document.querySelectorAll(".carousel-card");
-  // Login-Text setzen
-  setLoginText();
-
-  // Login-Button Event-Listener
-  document.getElementById("loginButton").addEventListener("click", function () {
-    const loggedIn = localStorage.getItem("loggedIn");
-    if (loggedIn) {
-      localStorage.removeItem("loggedIn");
-      setLoginText();
-      document.getElementById("message").textContent =
-        "Erfolgreich abgemeldet!";
-    } else {
-      window.location.href = "login.html";
-    }
-  });
-
-  // Klick-Events für Felder
-  cards.forEach((card) => {
-    card.addEventListener("click", () => {
-      const currentRiddle = parseInt(card.id, 10); // ID des Feldes ist die Zahl
-
-      // Benutzer aus localStorage abrufen und aktualisieren
-      const userData = localStorage.getItem("user");
-      if (userData) {
-        const user = JSON.parse(userData);
-        const loggedIn = localStorage.getItem("loggedIn");
-
-        if (loggedIn) {
-          // Überprüfen, ob das aktuelle Rätsel gelöst werden darf
-          if (currentRiddle === user.finishedRiddles + 1) {
-            // Weiterleitung zur Rätselseite
-            user.currentRiddle = currentRiddle;
-            localStorage.setItem("user", JSON.stringify(user));
-            window.location.href = `day${currentRiddle}.html`;
-          } else if (currentRiddle <= user.finishedRiddles) {
-            window.location.href = `solved.html`;
-          } else {
-            showPopup(
-              `Rätsel ${currentRiddle} kann noch nicht gelöst werden. Löse zuerst Rätsel ${
-                user.finishedRiddles + 1
-              }.`,
-            );
-          }
-        } else {
-          showPopup("Bitte logge dich ein, um zu starten!");
-        }
-      } else {
-        showPopup("Bitte logge dich ein, um zu starten!");
-      }
-    });
-  });
-});
-
-function setLoginText() {
-  const loggedIn = localStorage.getItem("loggedIn");
-  const loginButton = document.getElementById("loginButton");
-
-  // Entferne vorherige Inhalte
-  loginButton.innerHTML = "";
-
-  // Füge das passende Icon hinzu
-  const icon = document.createElement("i");
-  icon.className = loggedIn ? "fas fa-sign-out-alt" : "fas fa-sign-in-alt";
-  loginButton.appendChild(icon);
+html {
+    background: var(--popup-bg-gradient);
+}
+/* Basis-Layout */
+html,body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    color: var(--black-color);
+    overflow-x: hidden;
 }
 
-// Funktion, um das Popup zu zeigen
-function showPopup(message) {
-  const popup = document.getElementById("errorPopup");
-  const popupMessage = document.getElementById("popupMessage");
-  popupMessage.textContent = message; // Nachricht setzen
-  popup.style.display = "flex"; // Popup sichtbar machen
+.loginImage {
+    width: 50px;
+    height: auto;
+}
+/* Typografie */
+h1 {
+    font-weight: 700;
+    font-size: 3rem;
+    margin: 20px 0 10px;
+    text-align: center;
+    color: var(--primary-color);
+    text-transform: uppercase;
 }
 
-// Funktion, um das Popup zu schließen
-function closePopup() {
-  const popup = document.getElementById("errorPopup");
-  popup.style.display = "none"; // Popup verstecken
+p {
+    text-align: left;
+    color: var(--black-color);
+    line-height: 1.5;
 }
 
-// Event-Listener für den Schließen-Button
-document.getElementById("closePopup").addEventListener("click", closePopup);
-document.getElementById("loginPopup").addEventListener("click", goTo);
-
-function goTo() {
-  window.location.href = "login.html";
+a {
+    text-decoration: none;
 }
+
+ul, li {
+    text-align: left;
+}
+
+h3{
+    color: var(--white-color);
+}
+
+.description {
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    line-height: 1.5;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.riddle-item {
+    display: flex;
+    align-items: center; /* Bild und Text vertikal ausrichten */
+    gap: 10px; /* Abstand zwischen Bild und Text */
+  }
+  
+  .riddleImage {
+    width: 50px; /* Größe des Bildes */
+    height: 50px;
+    object-fit: contain; /* Verhindert Verzerrungen */
+  }
+
+button, .button, #checkAnswerButton {
+    width: auto; /* Automatische Breite basierend auf Inhalt */
+    display: inline-block;
+    text-transform: uppercase;
+    margin-top:10px;
+    font-size: 1rem;
+    border-radius: 0.5em;
+    background: var(--primary-color);
+    color: var(--white-color);
+    font-weight: bold;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+  
+  .button:hover {
+    background: var(--secondary-color);
+    transform: scale(1.1);
+  }
+/* Navigationsleiste */
+.navbar {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%; /* Schmalere Breite */
+    height: 10%;
+    max-width: 800px; /* Maximale Breite */
+    background-color: var(--white-color);
+    display: flex;
+    justify-content: center; /* Buttons enger zusammen */
+    gap: 70px; /* Abstand zwischen den Buttons */
+    align-items: center;
+    padding: 10px 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 40px; /* Oben abgerundete Ecken */
+    z-index: 1000;
+}
+  
+  /* Buttons in der Navigationsleiste */
+  .nav-button {
+    background: none;
+    border: none;
+    color: var(--white-color);
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Runde Buttons */
+    background-color: var(--secondary-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .nav-button:hover {
+    transform: scale(1.1);
+    background-color: var(--tertiary-color);
+  }
+  
+  /* Icon-Styling */
+  .nav-button i {
+    font-size: 1.2rem;
+  }
+  
+  /* "Heute"-Button */
+  .nav-button.today {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1); /* Größer */
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .nav-button.today:hover {
+    transform: scale(1.2);
+  }
+
+/* Popup */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: var(--accent-color);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    border: 3px solid var(--white-color);
+}
+
+.popup-content h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.popup-content p {
+    font-size: 1.2rem;
+    color: var(--black-color);
+}
+
+.popup-content img {
+    width: 100px;
+    height: auto;
+}
+
+#loginPopup {
+    margin-top:20px;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#closePopup:hover {
+    scale:1.1;
+}
+
+#closePopup {
+    padding: 10px 20px;
+    margin-top:10px;
+    color: var(--primary-color);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    width: 100%;
+    background: none;
+}
+
+#loginPopup:hover {
+    background-color: var(--primary-color-dark);
+}
+
+/* Hilfe-Button */
+.help-button {
+    position: fixed;
+    top: 20px; /* Abstand vom oberen Rand */
+    right: 20px; /* Abstand vom rechten Rand */
+    width: 50px;
+    height: 50px;
+    background-color: var(--white-color);
+    color: var(--primary-color);
+    border-radius: 50%; /* Runder Button */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.5rem; /* Größe des Icons */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 2000; /* Über andere Elemente legen */
+  }
+  
+  .help-button:hover {
+    transform: scale(1.1); /* Leicht vergrößern beim Hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+/* Zurück-Button */
+.back-button {
+    position: absolute; /* Nicht mehr fixed, damit er im Layout bleibt */
+    top: 20px;
+    left: 20px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Runde Form */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    z-index: 10; /* Höher als der Hauptinhalt */
+  }
+  
+  .back-button i {
+    font-size: 1.5rem;
+  }
+  
+  .back-button:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.1);
+  }
+  
+  /* Hauptinhalt Styling */
+  .content {
+    padding: 20px;
+    line-height: 1.5;
+    max-width: 800px;
+    margin: 100px auto 0; /* Abstand für den Zurück-Button */
+    background: var(--white-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .content h1 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+  }
+  
+  .content h2 {
+    color: var(--primary-color);
+    margin-bottom: 5px;
+  }
+  
+  .content ul {
+    padding-left: 20px;
+    list-style-type: disc;
+  }
+
+  /* Gesamtcontainer */
+.carousel-container {
+    position: absolute;
+    bottom: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 450px; /* Erhöht, um Platz für größere Karten zu schaffen */
+    border-radius: 15px;
+    perspective: 1200px; /* 3D-Perspektive */
+    overflow: hidden; /* Verhindert Überlauf */
+    scroll-behavior: smooth;
+  }
+  
+  /* Karussell */
+  .carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  /* Karte */
+  .carousel-card {
+    position: absolute;
+    width: 220px; /* Breitere Karten */
+    height: 300px; /* Höhere Karten */
+    background: var(--secondary-color) no-repeat center center / cover;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 10px solid var(--white-color);
+    transition: transform 0.5s ease;
+    z-index: 1;
+  }
+  
+  /* Mittlere Karte */
+  .carousel-card.active {
+    transform: translateZ(300px) scale(1.3); /* Größerer Abstand und Skalierung */
+    z-index: 10;
+  }
+  
+  /* Erste Karten links und rechts */
+  .carousel-card.left {
+    transform: translateX(-200px) translateZ(-100px) scale(1);
+    z-index: 5;
+  }
+  
+  .carousel-card.right {
+    transform: translateX(200px) translateZ(-100px) scale(1);
+    z-index: 5;
+  }
+  
+  /* Zweite Karten links und rechts */
+  .carousel-card.far-left {
+    transform: translateX(-400px) translateZ(-200px) scale(0.9);
+  }
+  
+  .carousel-card.far-right {
+    transform: translateX(400px) translateZ(-200px) scale(0.9);
+  }
+  
+  /* Karten im Hintergrund */
+  .carousel-card:not(.active):not(.left):not(.right):not(.far-left):not(.far-right) {
+    transform: translateZ(-400px) scale(0.8);
+  }
+  
+  /* Pfeile */
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 4rem;
+    color: var(--white-color);
+    cursor: pointer;
+    z-index: 20;
+    text-shadow: 0px 0px 40px black;
+  }
+  
+  .left-arrow {
+    left: 10px;
+  }
+  
+  .right-arrow {
+    right: 10px;
+  }

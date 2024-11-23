@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Adventskalender</title>
+    <meta
+      name="description"
+      content="Weihnachtlicher Adventskalender für die Familie"
+    />
+    <link rel="stylesheet" href="../css/light-colors.css" />
+    <link rel="shortcut icon" href="../favicon.ico" />
+    <link rel="stylesheet" href="../css/normalize.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/countdown.css" />
+  </head>
+
+  <body>
+    <a href="help.html" class="help-button">
+      <i class="fas fa-question"></i>
+    </a>
+    <div id="errorPopup" class="popup">
+      <div class="popup-content">
+        <img
+          class="popupImage"
+          src="../assets/snowflake.png"
+          alt="Schneeflocke"
+        />
+        <h2>Oh nein!</h2>
+        <p id="popupMessage"></p>
+        <button id="loginPopup">Login</button>
+        <button id="closePopup">Schließen</button>
+      </div>
+    </div>
+    <div class="carousel-container">
+      <button class="carousel-arrow left-arrow">❮</button>
+      <div class="carousel">
+        <div class="carousel-card" id="1" data-day="1"></div>
+        <div class="carousel-card" id="2" data-day="2"></div>
+        <div class="carousel-card" id="3" data-day="3"></div>
+        <div class="carousel-card" id="4" data-day="4"></div>
+        <div class="carousel-card" id="5" data-day="5"></div>
+        <div class="carousel-card" id="6" data-day="6"></div>
+        <div class="carousel-card" id="7" data-day="7"></div>
+        <div class="carousel-card" id="8" data-day="8"></div>
+        <div class="carousel-card" id="9" data-day="9"></div>
+        <div class="carousel-card" id="10" data-day="10"></div>
+        <div class="carousel-card" id="11" data-day="11"></div>
+        <div class="carousel-card" id="12" data-day="12"></div>
+        <div class="carousel-card" id="13" data-day="13"></div>
+        <div class="carousel-card" id="14" data-day="14"></div>
+        <div class="carousel-card" id="15" data-day="15"></div>
+        <div class="carousel-card" id="16" data-day="16"></div>
+        <div class="carousel-card" id="17" data-day="17"></div>
+        <div class="carousel-card" id="18" data-day="18"></div>
+        <div class="carousel-card" id="19" data-day="19"></div>
+        <div class="carousel-card" id="20" data-day="20"></div>
+        <div class="carousel-card" id="21" data-day="21"></div>
+        <div class="carousel-card" id="22" data-day="22"></div>
+        <div class="carousel-card" id="23" data-day="23"></div>
+        <div class="carousel-card" id="24" data-day="24"></div>
+      </div>
+      <button class="carousel-arrow right-arrow">❯</button>
+    </div>
+    <nav class="navbar">
+      <button id="loginButton" class="nav-button">
+        <i class="as fa-sign-in-alt"></i>
+      </button>
+      <div class="nav-center">
+        <button id="scrollToToday" class="nav-button today">
+          <i class="fas fa-calendar"></i>
+        </button>
+      </div>
+      <button id="first" class="nav-button">
+        <i class="fas fa-redo"></i>
+      </button>
+    </nav>
+    <script src="../js/main.js"></script>
+    <script src="../js/countdown.js"></script>
+  </body>
+</html>
