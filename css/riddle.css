@@ -85,6 +85,27 @@
       .popup-content button:hover {
         background-color: #e94e2b;
       }
+
+      #puzzle-container {
+        display: grid;
+        grid-template-columns: repeat(3, 100px); /* 3 Spalten */
+        grid-template-rows: repeat(3, 100px);   /* 3 Reihen */
+        gap: 5px; /* Abstand zwischen den Feldern */
+        width: 315px; /* Gesamtbreite (inklusive Abstände) */
+        height: 315px; /* Gesamthöhe */
+      }
+      
+      .puzzle-tile {
+        width: 100px;
+        height: 100px;
+        background-size: cover; /* Bild anpassen */
+        cursor: pointer;
+      }
+      
+      .hidden {
+        background-color: lightgrey; /* Leeres Feld */
+        cursor: default;
+      }
       
 
       @keyframes fadeIn {
