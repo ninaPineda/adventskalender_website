@@ -18,51 +18,17 @@
       <i class="fas fa-arrow-left"></i>
     </a>
     <h1>Tag 1</h1>
-    <h3>Willkommen! Hier ist dein Rätsel:</h3>
+    <h3>Willkommen! Hier ist dein heutiges Rätsel:</h3>
     <div class="riddle-container">
-        <p>
-            Drei Elfen – Willi, Mikkel und Juri – sind verdächtig, den letzten Keks gegessen zu haben. 
-          </p>
-          <p>
-            Es gibt drei Rollen:
-            <ul>
-              <li>Der <strong>Unschuldige</strong> sagt immer die Wahrheit.</li>
-              <li>Der <strong>Schuldige</strong> lügt immer.</li>
-              <li>Der <strong>Zeuge</strong> kann sowohl die Wahrheit sagen als auch lügen.</li>
-            </ul>
-          </p>
-          <p>
-            Die Aussagen der Elfen sind:
-            <ul>
-                <li><strong>Juri</strong>: "Ich bin der Zeuge."</li>
-              <li><strong>Willi</strong>: "Juri ist der Schuldige."</li>
-              <li><strong>Mikkel</strong>: "Willi ist unschuldig."</li>
-
-            </ul>
-          </p>
-          <p>
-            Wer hat den letzten Keks gegessen?
-          </p>
-      <input type="text" id="answerInput" placeholder="Deine Lösung eingeben" />
-      <button id="checkAnswerButton">Prüfen</button>
+      <div id="puzzle-container"></div>
     </div>
-    <h3 id="attemptDisplay">Versuch 0</h3>
-    <!-- Popup für falsche Antwort -->
-    <div id="errorPopup" class="popup">
-      <div class="popup-content">
-        <p id="popupMessage">Das war leider falsch!</p>
-        <button id="closePopup">Schließen</button>
-      </div>
-    </div>
-
     <!-- Popup für richtige Antwort -->
     <div id="successPopup" class="popup">
       <div class="popup-content">
         <p id="popupMessage">Richtig! Die Antwort ist korrekt.</p>
         <a href="./home.html" class="button">Zum Kalender</a>
       </div>
-    </div>
-
     <script src="../js/riddle.js"></script>
+    <script src="../js/schiebepuzzle.js"></script>
   </body>
 </html>

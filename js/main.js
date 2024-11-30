@@ -40,10 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // Prüfen, ob es Dezember ist
-      //if (currentMonth !== 11) {
-      //showDecPopup("Es ist noch nicht Dezember! Warte noch ein wenig.");
-      //return;
-      //}
+      if (currentMonth !== 11) {
+        showDecPopup("Es ist noch nicht Dezember! Warte noch ein wenig.");
+        return;
+      }
 
       // Prüfen, ob das Rätsel in der Zukunft liegt
       if (currentRiddle > currentDay) {

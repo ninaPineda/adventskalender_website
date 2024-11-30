@@ -17,6 +17,7 @@
         width: 90%;
         max-width: 500px;
         display: flex;
+        overflow: hidden;
         flex-direction: column;
         background: white;
         border-radius: 15px;
