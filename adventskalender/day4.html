@@ -18,57 +18,42 @@
       <i class="fas fa-arrow-left"></i>
     </a>
     <h1>Tag 4</h1>
-    <h3>Willkommen! Hier ist dein heutiges Rätsel:</h3>
+    <h3>Willkommen! Hier ist dein Rätsel:</h3>
     <div class="riddle-container">
-      <p><strong>Nur eine Aussage ist wahr:</strong></p>
-    
-      <div class="riddle-item">
-        <img
-          class="riddleImage"
-          src="../assets/present.png"
-          alt="Present"
-        />
-        <p>Das Auto ist in dieser Box.</p>
-      </div>
-    
-      <div class="riddle-item">
-        <img
-          class="riddleImage"
-          src="../assets/present.png"
-          alt="Present"
-        />
-        <p>Das Auto ist nicht in dieser Box.</p>
-      </div>
-    
-      <div class="riddle-item">
-        <img
-          class="riddleImage"
-          src="../assets/present.png"
-          alt="Present"
-        />
-        <p>Das Auto ist in Box 1.</p>
-      </div>
-      <p>Wo ist das Auto?</p>
-      <button id="wrongButton1">Box 1</button>
-      <button id="wrongButton2">Box 2</button>
-      <button id="rightButton">Box 3</button>
+      <p>
+        Der Weihnachtsmann gibt heute eine kleine Weihnachtsparty und hat Feen,
+        Engel und Wichtel eingeladen.
+      </p>
+      <p>
+        Doch wie viele Feen, Engel und Wichtel sind zu dieser Party erschienen?
+      </p>
+      <ul>
+        <li>Ohne die Wichtel wären nur <strong>18 Gäste</strong> gekommen.</li>
+        <li>Ohne die Feen wären nur <strong>12 Gäste</strong> gekommen.</li>
+        <li>Ohne die Engel wären nur <strong>10 Gäste</strong> gekommen.</li>
+      </ul>
+      <p><strong>Wie viele Wichtel waren eingeladen?</strong></p>
+
+      <input type="text" id="answerInput" placeholder="Deine Lösung eingeben" />
+      <button id="checkAnswerButton">Prüfen</button>
     </div>
-      <h3 id="attemptDisplay">Versuch 0</h3>
-      <!-- Popup für falsche Antwort -->
-      <div id="errorPopup" class="popup">
-        <div class="popup-content">
-          <p id="popupMessage">Das war leider falsch!</p>
-          <button id="closePopup">Schließen</button>
-        </div>
+    <h3 id="attemptDisplay">Versuch 0</h3>
+    <!-- Popup für falsche Antwort -->
+    <div id="errorPopup" class="popup">
+      <div class="popup-content">
+        <p id="popupMessage">Das war leider falsch!</p>
+        <button id="closePopup">Schließen</button>
       </div>
     </div>
+
     <!-- Popup für richtige Antwort -->
     <div id="successPopup" class="popup">
       <div class="popup-content">
         <p id="popupMessage">Richtig! Die Antwort ist korrekt.</p>
         <a href="./home.html" class="button">Zum Kalender</a>
       </div>
-    
+    </div>
+
     <script src="../js/riddle.js"></script>
   </body>
 </html>
