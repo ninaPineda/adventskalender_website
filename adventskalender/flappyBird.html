@@ -26,11 +26,11 @@
     <h1>Tag 4</h1>
     <h3>Willkommen! Hier ist dein Rätsel:</h3>
     <div class="riddle-container">
+      <p>Erriche die Ziellinies! Berühre keine Geschenke oder Wolken!</p>
       <canvas id="myCanvas" width=320 height=480
- style="background:url('http://s2js.com/img/etc/flappyback.png');  background-size: 100%; height: 95% " >
+ style="background:url('../assets/backgroundFlappy.png');  background-size: 100%; height: 95% " >
 
     </div>
-    <button id="jump-button">Springen</button>
     <h3 id="attemptDisplay">Versuch 0</h3>
     <!-- Popup für falsche Antwort -->
     <div id="errorPopup" class="popup">
@@ -129,7 +129,7 @@ function make_bird_slow_and_fall() {
     bird.velocity_y = 0;
     game_mode = 'over';
   }
-  if (bird.y < 0 - bird.MyImg.height) {
+  if (bird.y < 0 - (bird.MyImg.height - 30)) {
     bird.velocity_y = 0;
     game_mode = 'over';
   }
@@ -162,25 +162,37 @@ function check_for_end_game() {
 }
 function display_intro_instructions() {
   ctx.font = '25px Arial';
-  ctx.fillStyle = 'red';
+  ctx.fillStyle = 'black';
   ctx.textAlign = 'center';
   ctx.fillText(
-    'Press, touch or click to start',
+    'Klicken zum Starten',
     myCanvas.width / 2,
     myCanvas.height / 4
   );
 }
+
+  var cloud_bar = new Image();
+cloud_bar.src = "../assets/clouds.png"; // Pfad zu deinem Wolkenbild
+
+function display_cloud_bar() {
+  ctx.drawImage(cloud_bar, 0, 0, myCanvas.width, 50); // Bild oben zeichnen
+}
+
 function display_game_over() {
   var score = 0;
   for (var i = 0; i < pipes.length; i++)
     if (pipes[i].x < bird.x) score = score + 0.5;
-  ctx.font = '30px Arial';
-  ctx.fillStyle = 'red';
+    if (score < 5){
+      ctx.font = '30px Arial';
+  ctx.fillStyle = 'black';
   ctx.textAlign = 'center';
-  ctx.fillText('Game Over', myCanvas.width / 2, 100);
-  ctx.fillText('Score: ' + score, myCanvas.width / 2, 150);
+  ctx.fillText('Game Over', myCanvas.width / 2, 100)
   ctx.font = '20px Arial';
-  ctx.fillText('Click, touch, or press to play again', myCanvas.width / 2, 300);
+  ctx.fillText('Klicke, um erneut zu starten', myCanvas.width / 2, 300);
+    } else {
+      rightAnswer();
+    }
+  
 }
 function display_bar_running_along_bottom() {
   if (bottom_bar_offset < -23) bottom_bar_offset = 0;
@@ -205,10 +217,10 @@ function add_all_my_pipes() {
   add_pipe(1800, 150, 120);
   add_pipe(2000, 200, 120);
   add_pipe(2200, 250, 120);
-  add_pipe(2400, 30, 100);
-  add_pipe(2700, 300, 100);
+  add_pipe(2400, 300, 100);
+  add_pipe(2700, 250, 100);
   var finish_line = new MySprite('http://s2js.com/img/etc/flappyend.png');
-  finish_line.x = 3900;
+  finish_line.x = 2900;
   finish_line.velocity_x = pipe_speed;
   pipes.push(finish_line);
 }
@@ -216,9 +228,9 @@ var pipe_piece = new Image();
 pipe_piece.onload = add_all_my_pipes;
 pipe_piece.src = '../assets/tree.png';
 function Do_a_Frame() {
-  ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
-  bird.Do_Frame_Things();
-  display_bar_running_along_bottom();
+  ctx.clearRect(0, 0, myCanvas.width, myCanvas.height); // Canvas löschen
+  display_cloud_bar(); // Wolkenbalken zeichnen
+  bird.Do_Frame_Things(); // Rentier rendern
   switch (game_mode) {
     case 'prestart': {
       display_intro_instructions();
@@ -227,21 +239,23 @@ function Do_a_Frame() {
     case 'running': {
       time_game_last_running = new Date();
       bottom_bar_offset = bottom_bar_offset + pipe_speed;
-      show_the_pipes();
+      show_the_pipes(); // Bäume rendern
       make_bird_tilt_appropriately();
       make_bird_slow_and_fall();
       check_for_end_game();
+      display_bar_running_along_bottom(); // Boden nach den Bäumen rendern
       break;
     }
     case 'over': {
       make_bird_slow_and_fall();
       display_game_over();
+      display_bar_running_along_bottom(); // Boden bleibt sichtbar bei Game Over
       break;
     }
   }
 }
 var bottom_bar = new Image();
-bottom_bar.src = 'http://s2js.com/img/etc/flappybottom.png';
+bottom_bar.src = '../assets/floor.png';
 
 var bird = new MySprite('../assets/reindeer.png');
 bird.x = myCanvas.width / 3;
