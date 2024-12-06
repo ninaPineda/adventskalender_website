@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tag 4</title>
+    <title>Tag 7</title>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
       rel="stylesheet"
@@ -12,63 +12,273 @@
     <link rel="stylesheet" href="../css/normalize.css" />
     <link rel="stylesheet" href="../css/main.css" />
     <link rel="stylesheet" href="../css/riddle.css" />
+    <style>
+        * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.memory-game {
+  width: 100%;
+  height: 300px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  perspective: 1000px;
+}
+
+.memory-card {
+  width: calc(25% - 10px);
+  height: calc(33.333% - 10px);
+  margin: 5px;
+  position: relative;
+  transform: scale(1);
+  transform-style: preserve-3d;
+  transition: transform .5s;
+  box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+}
+
+.memory-card:active {
+  transform: scale(0.97);
+  transition: transform .2s;
+}
+
+.memory-card.flip {
+  transform: rotateY(180deg);
+}
+
+.front-face,
+.back-face {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 5px;
+  background: var(--tertiary-color);
+  backface-visibility: hidden;
+}
+
+.back-face{
+    padding: 15px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.front-face {
+  transform: rotateY(180deg);
+}
+    </style>
   </head>
   <body>
     <a href="home.html" class="back-button">
       <i class="fas fa-arrow-left"></i>
     </a>
-    <h1>Tag 4</h1>
+    <h1>Tag 7</h1>
     <h3>Willkommen! Hier ist dein heutiges Rätsel:</h3>
+
     <div class="riddle-container">
-      <p><strong>Nur eine Aussage ist wahr:</strong></p>
-    
-      <div class="riddle-item">
-        <img
-          class="riddleImage"
-          src="../assets/present.png"
-          alt="Present"
-        />
-        <p>Das Auto ist in dieser Box.</p>
-      </div>
-    
-      <div class="riddle-item">
-        <img
-          class="riddleImage"
-          src="../assets/present.png"
-          alt="Present"
-        />
-        <p>Das Auto ist nicht in dieser Box.</p>
-      </div>
-    
-      <div class="riddle-item">
-        <img
-          class="riddleImage"
-          src="../assets/present.png"
-          alt="Present"
-        />
-        <p>Das Auto ist in Box 1.</p>
-      </div>
-      <p>Wo ist das Auto?</p>
-      <button id="wrongButton1">Box 1</button>
-      <button id="wrongButton2">Box 2</button>
-      <button id="rightButton">Box 3</button>
+        <section class="memory-game">
+            <div class="memory-card" data-framework="aurelia">
+              <img class="front-face" src="../assets/memory/img-1.png" alt="Aurelia" />
+              <img class="back-face" src="../assets/snowflake.png" alt="Schneeflocke" />
+            </div>
+            <div class="memory-card" data-framework="aurelia">
+              <img class="front-face" src="../assets/memory/img-1.png" alt="Aurelia" />
+              <img class="back-face" src="../assets/snowflake.png" alt="Schneeflocke" />
+            </div>
+          
+            <div class="memory-card" data-framework="vue">
+              <img class="front-face" src="../assets/memory/img-2.png" alt="Vue.js Logo" />
+              <img class="back-face" src="../assets/snowflake.png" alt="Schneeflocke" />
+            </div>
+            <div class="memory-card" data-framework="vue">
+              <img class="front-face" src="../assets/memory/img-2.png" alt="Vue.js Logo" />
+              <img class="back-face" src="../assets/snowflake.png" alt="Schneeflocke" />
+            </div>
+          
+            <div class="memory-card" data-framework="angular">
+              <img class="front-face" src="../assets/memory/img-3.png" alt="Angular Logo" />
+              <img class="back-face" src="../assets/snowflake.png" alt="Schneeflocke" />
+            </div>
+            <div class="memory-card" data-framework="angular">
+              <img class="front-face" src="../assets/memory/img-3.png" alt="Angular Logo" />
+              <img class="back-face" src="../assets/snowflake.png" alt="Schneeflocke" />
+            </div>
+          
+            <div class="memory-card" data-framework="ember">
+              <img class="front-face" src="../assets/memory/img-4.png" alt="Ember.js Logo" />
+              <img class="back-face" src="../assets/snowflake.png" alt="Schneeflocke" />
+            </div>
+            <div class="memory-card" data-framework="ember">
+              <img class="front-face" src="../assets/memory/img-4.png" alt="Ember.js Logo" />
+              <img class="back-face" src="../assets/snowflake.png" alt="Schneeflocke" />
+            </div>
+          
+            <div class="memory-card" data-framework="backbone">
+              <img class="front-face" src="../assets/memory/img-5.png" alt="Backbone.js Logo" />
+              <img class="back-face" src="../assets/snowflake.png" alt="Schneeflocke" />
+            </div>
+            <div class="memory-card" data-framework="backbone">
+              <img class="front-face" src="../assets/memory/img-5.png" alt="Backbone.js Logo" />
+              <img class="back-face" src="../assets/snowflake.png" alt="Schneeflocke" />
+            </div>
+          
+            <div class="memory-card" data-framework="react">
+              <img class="front-face" src="../assets/memory/img-6.png" alt="React.js Logo" />
+              <img class="back-face" src="../assets/snowflake.png" alt="Schneeflocke" />
+            </div>
+            <div class="memory-card" data-framework="react">
+              <img class="front-face" src="../assets/memory/img-6.png" alt="React.js Logo" />
+              <img class="back-face" src="../assets/snowflake.png" alt="Schneeflocke" />
+            </div>
+          </section>
     </div>
-      <h3 id="attemptDisplay">Versuch 0</h3>
-      <!-- Popup für falsche Antwort -->
-      <div id="errorPopup" class="popup">
-        <div class="popup-content">
-          <p id="popupMessage">Das war leider falsch!</p>
-          <button id="closePopup">Schließen</button>
-        </div>
-      </div>
-    </div>
+    <h3 id="attemptDisplay">Versuche 0</h3>
     <!-- Popup für richtige Antwort -->
     <div id="successPopup" class="popup">
       <div class="popup-content">
         <p id="popupMessage">Richtig! Die Antwort ist korrekt.</p>
         <a href="./home.html" class="button">Zum Kalender</a>
       </div>
-    
     <script src="../js/riddle.js"></script>
+    <script>const cards = document.querySelectorAll('.memory-card');
+
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
+        
+        function flipCard() {
+          if (lockBoard) return;
+          if (this === firstCard) return;
+        
+          this.classList.add('flip');
+        
+          if (!hasFlippedCard) {
+            hasFlippedCard = true;
+            firstCard = this;
+        
+            return;
+          }
+        
+          secondCard = this;
+          checkForMatch();
+        }
+        
+        function checkForMatch() {
+          let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
+        
+          isMatch ? disableCards() : unflipCards();
+        }
+        
+        function disableCards() {
+          firstCard.removeEventListener('click', flipCard);
+          secondCard.removeEventListener('click', flipCard);
+        
+          resetBoard();
+        }
+        
+        function unflipCards() {
+          lockBoard = true;
+            // Daten aus LocalStorage abrufen und parsen
+  const userData = JSON.parse(localStorage.getItem("user"));
+  userData.tries = parseInt(userData.tries) + 1;
+  // Aktualisierte Daten zurück in LocalStorage speichern
+  localStorage.setItem("user", JSON.stringify(userData));
+  updateAttemptDisplay();
+        
+          setTimeout(() => {
+            firstCard.classList.remove('flip');
+            secondCard.classList.remove('flip');
+        
+            resetBoard();
+          }, 1500);
+        }
+        
+        function resetBoard() {
+          [hasFlippedCard, lockBoard] = [false, false];
+          [firstCard, secondCard] = [null, null];
+        }
+        
+        (function shuffle() {
+          cards.forEach(card => {
+            let randomPos = Math.floor(Math.random() * 12);
+            card.style.order = randomPos;
+          });
+        })();
+
+        function checkAllMatched() {
+  const allFlipped = Array.from(cards).every(card => card.classList.contains('flip'));
+  if (allFlipped) {
+    rightAnswer();
+  }
+}
+
+function disableCards() {
+  firstCard.removeEventListener('click', flipCard);
+  secondCard.removeEventListener('click', flipCard);
+
+  resetBoard();
+  checkAllMatched(); // Überprüft, ob das Spiel abgeschlossen ist
+}
+        function rightAnswer() {
+  if (localStorage.getItem("loggedIn")) {
+    const userDataRaw = localStorage.getItem("user");
+    let userData;
+    try {
+      userData = userDataRaw ? JSON.parse(userDataRaw) : null;
+    } catch (e) {
+      console.error("Fehler beim Parsen von LocalStorage-Daten:", e);
+      return;
+    }
+
+    if (!userData) {
+      console.error("Benutzerdaten nicht gefunden.");
+      return;
+    }
+
+    showPopup(
+      "Super du hast dieses Rätsel mit " + userData.tries +
+        " Versuchen gelöst.",
+      "successPopup",
+    );
+
+    //Daten aktualisieren
+    userData.finishedRiddles = userData.currentRiddle;
+    userData.allTries = userData.allTries + userData.tries;
+    userData.tries = 1;
+
+    // Speichere aktualisierte Daten
+    localStorage.setItem("user", JSON.stringify(userData));
+  } else {
+    console.error("Benutzer ist nicht eingeloggt.");
+  }
+
+  // Weiterleitung zur Home-Seite
+}
+
+function updateAttemptDisplay() {
+  const userDataRaw = localStorage.getItem("user");
+  const attemptDisplay = document.getElementById("attemptDisplay"); // Element holen
+
+  if (!userDataRaw) {
+    console.error("Benutzerdaten nicht im LocalStorage gefunden.");
+    attemptDisplay.textContent = "Versuch 0";
+    return;
+  }
+
+  try {
+    const userData = JSON.parse(userDataRaw);
+    if (userData.tries !== undefined) {
+      attemptDisplay.textContent = `Versuch ${userData.tries}`;
+    } else {
+      console.error("Versuche nicht definiert in Benutzerdaten.");
+      attemptDisplay.textContent = "Versuch 0";
+    }
+  } catch (e) {
+    console.error("Fehler beim Parsen von LocalStorage-Daten:", e);
+    attemptDisplay.textContent = "Versuch 0";
+  }
+}
+        
+        cards.forEach(card => card.addEventListener('click', flipCard));</script>
   </body>
 </html>
