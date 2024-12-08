@@ -3,7 +3,7 @@ document.getElementById("loginForm").addEventListener(
   async function (e) {
     e.preventDefault();
 
-    const username = document.getElementById("username").value;
+    const username = document.getElementById("username").value.trim();
     const passwordField = document.getElementById("password");
     const password = passwordField.value.trim();
     const message = document.getElementById("message");
@@ -18,15 +18,25 @@ document.getElementById("loginForm").addEventListener(
       const users = await response.json();
 
       // Benutzer überprüfen
-      const user = users.find(
-        (user) => user.username === username && user.password === password,
-      );
+      const user = users.find((user) => user.username === username);
 
-      if (user) {
+      if (!user) {
+        // Benutzername existiert nicht
+        message.textContent = "Benutzername ist falsch!";
+        message.style.color = "red";
+        message.style.display = "block";
+      } else if (user.password !== password) {
+        // Passwort ist falsch
+        message.textContent = "Passwort ist falsch!";
+        message.style.color = "red";
+        message.style.display = "block";
+        // Passwort-Feld leeren
+        passwordField.value = "";
+      } else {
         // Erfolgreiche Anmeldung
         message.textContent = "Login erfolgreich!";
-        message.style.color = "green"; // Grüne Farbe für Erfolg
-        message.style.display = "block"; // Fehler sichtbar machen
+        message.style.color = "green";
+        message.style.display = "block";
         localStorage.setItem("loggedIn", "yes");
 
         // Benutzer initialisieren, falls noch nicht vorhanden
@@ -36,19 +46,13 @@ document.getElementById("loginForm").addEventListener(
 
         // Weiterleitung zur Startseite
         window.location.href = "home.html";
-      } else {
-        // Benutzername oder Passwort falsch
-        message.textContent = "Benutzername oder Passwort ist falsch!";
-        message.style.color = "red"; // Rote Farbe für Fehler
-        message.style.display = "block"; // Fehler sichtbar machen
-        // Passwort-Feld leeren
-        passwordField.value = "";
       }
     } catch (error) {
       // Fehler beim Laden der JSON-Datei
-      message.textContent = `"Benutzername oder Passwort ist falsch!"`;
-      message.style.color = "red"; // Rote Farbe für Fehler
-      message.style.display = "block"; // Fehler sichtbar machen
+      message.textContent =
+        "Es gab ein Problem beim Login. Bitte versuche es später erneut.";
+      message.style.color = "red";
+      message.style.display = "block";
     }
   },
 );
