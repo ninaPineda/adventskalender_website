@@ -4,27 +4,27 @@
     "password": "12345"
   },
   {
-  "username": "nanni76",
-  "password": "cloudySkies"
-},
-{
-  "username": "kaiser",
-  "password": "greenWheels"
-},
-{
-  "username": "bentastic",
-  "password": "puzzleQueen"
-},
-{
-  "username": "lara",
-  "password": "passwort"
-},
+    "username": "nanni76",
+    "password": "cloudySkies"
+  },
   {
-  "username": "maxi",
-  "password": "passwort"
-},
+    "username": "kaiser",
+    "password": "greenWheels"
+  },
   {
-  "username": "coco",
-  "password": "passwort"
-},
+    "username": "bentastic",
+    "password": "puzzleQueen"
+  },
+  {
+    "username": "lara",
+    "password": "passwort"
+  },
+  {
+    "username": "maxi",
+    "password": "passwort"
+  },
+  {
+    "username": "coco",
+    "password": "passwort"
+  }
 ]
