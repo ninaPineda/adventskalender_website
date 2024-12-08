@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tag 2</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/light-colors.css" />
+    <link rel="stylesheet" href="../css/normalize.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/riddle.css" />
+    <style>
+      /* Alte Frage nach links wischen */
+      @keyframes slideOut {
+        0% {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(-100%);
+          opacity: 0;
+        }
+      }
+
+      /* Neue Frage von rechts reinwischen */
+      @keyframes slideIn {
+        0% {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      .slide-out {
+        animation: slideOut 0.5s ease-in-out;
+      }
+
+      .slide-in {
+        animation: slideIn 0.5s ease-in-out;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="home.html" class="back-button">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+    <h1>Tag 2</h1>
+    <h3>Willkommen! Hier ist dein Rätsel:</h3>
+    <div class="riddle-container">
+      <p>Welches Lied wird hier gesucht:</p>
+      <p id="questionDisplay">Frage wird geladen...</p>
+      <input type="text" id="answerInput" placeholder="Deine Lösung eingeben" />
+      <button id="checkAnswerButton">Prüfen</button>
+    </div>
+    <h3 id="progressDisplay">Frage 1 von X</h3>
+    <h3 id="attemptDisplay">Versuch 0</h3>
+    <!-- Popup für falsche Antwort -->
+    <div id="errorPopup" class="popup">
+      <div class="popup-content">
+        <p id="popupMessage">Das war leider falsch!</p>
+        <button id="closePopup">Schließen</button>
+      </div>
+    </div>
+
+    <!-- Popup für richtige Antwort -->
+    <div id="successPopup" class="popup">
+      <div class="popup-content">
+        <p id="popupMessage">Richtig! Die Antwort ist korrekt.</p>
+        <a href="./home.html" class="button">Zum Kalender</a>
+      </div>
+    </div>
+
+    <script>
+      const questions = [
+        {
+          question: "😮🎄😮🎄",
+          answers: [
+            "oh tannenbaum",
+            "o tannenbaum",
+            "tannenbaum",
+            "der tannenbaum",
+          ],
+        },
+        {
+          question: "🤫🌃😇🌃",
+          answers: [
+            "stille nacht",
+            "stille nacht heilige nacht",
+            "stille nacht, heilige nacht",
+            "heilige nacht",
+            "nachtlied",
+          ],
+        },
+        {
+          question: "🔙🎄",
+          answers: [
+            "last christmas",
+            "weihnachtsherz",
+            "kaputtes herz weihnachten",
+            "weihnachten herzschmerz",
+          ],
+        },
+        {
+          question: "🔔🔔🔔",
+          answers: [
+            "jingle bells",
+            "kling glöckchen",
+            "glöckchenlied",
+            "glöckchen",
+          ],
+        },
+        {
+          question: "♾️🎁🫵🏼",
+          answers: [
+            "all i want for christmas is you",
+            "alles was ich zu weihnachten will bist du",
+            "ich will dich zu weihnachten",
+            "weihnachtsliebe",
+          ],
+        },
+        {
+          question: "😮🫵🏼🤣😮🫵🏼😇",
+          answers: [
+            "o du fröhliche",
+            "o du froehliche",
+            "froehliche",
+            "fröhliche",
+            "weihnachtslied",
+          ],
+        },
+        {
+          question: "❄️☃️🌨️",
+          answers: [
+            "let it snow",
+            "schneelied",
+            "lass es schneien",
+            "schneeflockenlied",
+          ],
+        },
+        {
+          question: "🚗🏠🎄",
+          answers: [
+            "driving home for christmas",
+            "weihnachtsheimfahrt",
+            "fahren zu weihnachten",
+            "heimfahrt weihnachten",
+          ],
+        },
+        {
+          question: "🤣🎄♾️",
+          answers: [
+            "fröhliche weihnacht überall",
+            "froehliche weihnacht überall",
+            "weihnachtslied überall",
+            "weihnacht überall",
+          ],
+        },
+        {
+          question: "❄️⚪️👗",
+          answers: [
+            "schneeflöckchen weiß röckchen",
+            "schnee flöckchen weiß röckchen",
+            "schneeflöckchen",
+            "schnee flöckchen",
+          ],
+        },
+        {
+          question: "🦌🔴🌟",
+          answers: [
+            "rudolph the red-nosed reindeer",
+            "rudolph das rentier",
+            "rudolph mit der roten nase",
+            "rudolph",
+          ],
+        },
+        {
+          question: "🎶🎄🇪🇸",
+          answers: [
+            "feliz navidad",
+            "fröhliche weihnachten auf spanisch",
+            "spanisches weihnachtslied",
+            "weihnachten spanisch",
+          ],
+        },
+      ];
+
+      let currentQuestionIndex = 0;
+
+      function loadDay2Question() {
+        const questionDisplay = document.getElementById("questionDisplay");
+        const progressDisplay = document.getElementById("progressDisplay");
+
+        // Animation für alte Frage
+        questionDisplay.classList.add("slide-out");
+
+        // Nach Ende der Animation: Neue Frage laden
+        setTimeout(() => {
+          questionDisplay.classList.remove("slide-out"); // Entferne alte Animation
+          questionDisplay.textContent =
+            questions[currentQuestionIndex].question; // Neue Frage setzen
+          questionDisplay.classList.add("slide-in"); // Neue Animation hinzufügen
+
+          // Entferne die "slide-in"-Klasse nach der Animation
+          setTimeout(() => {
+            questionDisplay.classList.remove("slide-in");
+          }, 500);
+        }, 500); // Warte, bis die "slide-out"-Animation abgeschlossen ist
+
+        // Fortschrittsanzeige aktualisieren
+        progressDisplay.textContent = `Frage ${currentQuestionIndex + 1} von ${
+          questions.length
+        }`;
+      }
+
+      // Antwortprüfung für diese Seite
+      document
+        .getElementById("checkAnswerButton")
+        .addEventListener("click", () => {
+          const userAnswer = document
+            .getElementById("answerInput")
+            .value.trim()
+            .toLowerCase();
+          const correctAnswers = questions[currentQuestionIndex].answers;
+
+          if (correctAnswers.includes(userAnswer)) {
+            handleDay2RightAnswer();
+          } else {
+            wrongAnswer();
+          }
+        });
+      function handleDay2RightAnswer() {
+        const questionDisplay = document.getElementById("questionDisplay");
+
+        // Füge die Animationsklasse hinzu
+        questionDisplay.classList.add("flash-animation");
+
+        // Entferne die Klasse nach der Animation (0.6 Sekunden)
+        setTimeout(() => {
+          questionDisplay.classList.remove("flash-animation");
+        }, 600);
+
+        // Lade die nächste Frage
+        currentQuestionIndex++;
+        document.getElementById("answerInput").value = ""; // Eingabe zurücksetzen
+        loadDay2Question();
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        loadDay2Question();
+      });
+
+      function wrongAnswer() {
+        // Daten aus LocalStorage abrufen und parsen
+        const userData = JSON.parse(localStorage.getItem("user"));
+        userData.tries = parseInt(userData.tries) + 1;
+        // Aktualisierte Daten zurück in LocalStorage speichern
+        localStorage.setItem("user", JSON.stringify(userData));
+        showPopup("Das war leider falsch! Versuch es nochmal.", "errorPopup");
+        updateAttemptDisplay();
+      }
+
+      function rightAnswer() {
+        if (localStorage.getItem("loggedIn")) {
+          const userDataRaw = localStorage.getItem("user");
+          let userData;
+          try {
+            userData = userDataRaw ? JSON.parse(userDataRaw) : null;
+          } catch (e) {
+            console.error("Fehler beim Parsen von LocalStorage-Daten:", e);
+            return;
+          }
+
+          if (!userData) {
+            console.error("Benutzerdaten nicht gefunden.");
+            return;
+          }
+
+          showPopup(
+            "Super du hast dieses Rätsel mit " +
+              userData.tries +
+              " Versuchen gelöst.",
+            "successPopup"
+          );
+
+          //Daten aktualisieren
+          userData.finishedRiddles = userData.currentRiddle;
+          userData.allTries = userData.allTries + userData.tries;
+          userData.tries = 1;
+
+          // Speichere aktualisierte Daten
+          localStorage.setItem("user", JSON.stringify(userData));
+        } else {
+          console.error("Benutzer ist nicht eingeloggt.");
+        }
+
+        // Weiterleitung zur Home-Seite
+      }
+
+      // Funktion, um das Popup zu zeigen
+      function showPopup(message, id) {
+        const popup = document.getElementById(id);
+        const popupMessage = document.getElementById("popupMessage");
+        popupMessage.textContent = message; // Nachricht setzen
+        popup.style.display = "flex"; // Popup sichtbar machen
+      }
+
+      // Funktion, um das Popup zu schließen
+      function closePopup() {
+        const popup = document.getElementById("errorPopup");
+        popup.style.display = "none"; // Popup verstecken
+      }
+
+      function updateAttemptDisplay() {
+        const userDataRaw = localStorage.getItem("user");
+        const attemptDisplay = document.getElementById("attemptDisplay"); // Element holen
+
+        if (!userDataRaw) {
+          console.error("Benutzerdaten nicht im LocalStorage gefunden.");
+          attemptDisplay.textContent = "Versuch 0";
+          return;
+        }
+
+        try {
+          const userData = JSON.parse(userDataRaw);
+          if (userData.tries !== undefined) {
+            attemptDisplay.textContent = `Versuch ${userData.tries}`;
+          } else {
+            console.error("Versuche nicht definiert in Benutzerdaten.");
+            attemptDisplay.textContent = "Versuch 0";
+          }
+        } catch (e) {
+          console.error("Fehler beim Parsen von LocalStorage-Daten:", e);
+          attemptDisplay.textContent = "Versuch 0";
+        }
+      }
+
+      // Event-Listener für den Schließen-Button
+      document
+        .getElementById("closePopup")
+        .addEventListener("click", closePopup);
+    </script>
+  </body>
+</html>

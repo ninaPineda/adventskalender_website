@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tag 2</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/light-colors.css" />
+    <link rel="stylesheet" href="../css/normalize.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/riddle.css" />
+    <style>
+      #tree-container {
+        position: relative;
+        width: 300px; /* Breite des Baumes */
+        height: 450px; /* Höhe des Baumes */
+        margin: 20px auto;
+        background-image: url("../assets/bare_tree.png");
+        background-position: center;
+        background-size: contain; /* Proportional skalieren */
+        background-repeat: no-repeat;
+      }
+      .ornament {
+        width: 40px; /* Größe der Ornamente */
+        height: 40px;
+        position: absolute;
+        cursor: grab;
+        z-index: 10;
+      }
+      #sidebar img {
+        width: 50px;
+        height: 50px;
+        cursor: grab;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="home.html" class="back-button">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+    <h1>Tag 2</h1>
+    <h3>Willkommen! Hier ist dein Spiel:</h3>
+    <div class="riddle-container">
+      <p>
+        Worauf freuen sich die Kinder im Lied „Lasst uns froh und munter sein“?
+      </p>
+      <div id="tree-container">
+        <div style="display: flex; gap: 20px">
+          <!-- Seitenleiste -->
+          <div
+            id="sidebar"
+            style="display: flex; flex-direction: column; gap: 10px"
+          >
+            <img
+              src="../assets/tree_decoration/1.png"
+              class="decoration"
+              alt="Ornament 1"
+            />
+            <img
+              src="../assets/tree_decoration/2.png"
+              class="decoration"
+              alt="Ornament 2"
+            />
+            <img
+              src="../assets/tree_decoration/3.png"
+              class="decoration"
+              alt="Ornament 3"
+            />
+          </div>
+          <div
+            id="sidebar"
+            style="display: flex; flex-direction: column; gap: 10px"
+          >
+            <img
+              src="../assets/tree_decoration/4.png"
+              class="decoration"
+              alt="Ornament 4"
+            />
+            <img
+              src="../assets/tree_decoration/5.png"
+              class="decoration"
+              alt="Ornament 5"
+            />
+            <img
+              src="../assets/tree_decoration/7.png"
+              class="decoration"
+              alt="Ornament 7"
+            />
+          </div>
+          <div
+            id="sidebar"
+            style="display: flex; flex-direction: column; gap: 10px"
+          >
+            <img
+              src="../assets/tree_decoration/8.png"
+              class="decoration"
+              alt="Ornament 8"
+            />
+            <img
+              src="../assets/tree_decoration/9.png"
+              class="decoration"
+              alt="Ornament 9"
+            />
+          </div>
+          <!-- Baum -->
+          <div id="tree-container"></div>
+        </div>
+      </div>
+      <button id="rightAnswer">Fertig</button>
+    </div>
+    <!-- Popup für falsche Antwort -->
+    <div id="errorPopup" class="popup">
+      <div class="popup-content">
+        <p id="popupMessage">Das war leider falsch!</p>
+        <button id="closePopup">Schließen</button>
+      </div>
+    </div>
+
+    <!-- Popup für richtige Antwort -->
+    <div id="successPopup" class="popup">
+      <div class="popup-content">
+        <p id="popupMessage">Richtig! Die Antwort ist korrekt.</p>
+        <a href="./home.html" class="button">Zum Kalender</a>
+      </div>
+    </div>
+
+    <script src="../js/riddle.js"></script>
+    <script>
+      const sidebarItems = document.querySelectorAll(".decoration");
+      const treeContainer = document.getElementById("tree-container");
+
+      sidebarItems.forEach((item) => {
+        item.addEventListener("dragstart", (e) => {
+          e.dataTransfer.setData("src", e.target.src);
+        });
+      });
+
+      treeContainer.addEventListener("dragover", (e) => {
+        e.preventDefault();
+      });
+
+      treeContainer.addEventListener("drop", (e) => {
+        e.preventDefault();
+        const src = e.dataTransfer.getData("src");
+
+        // Neues Ornament erstellen
+        const newOrnament = document.createElement("img");
+        newOrnament.src = src;
+        newOrnament.className = "ornament";
+        newOrnament.style.position = "absolute";
+        newOrnament.style.left = `${e.clientX - treeContainer.offsetLeft}px`;
+        newOrnament.style.top = `${e.clientY - treeContainer.offsetTop}px`;
+
+        // Ornament dem Baum hinzufügen
+        treeContainer.appendChild(newOrnament);
+
+        // Drag-and-Drop für neue Ornamente aktivieren
+        makeDraggable(newOrnament);
+      });
+      function makeDraggable(element) {
+        element.addEventListener("mousedown", (e) => {
+          e.preventDefault(); // Verhindert unerwünschte Selektionen während des Drags
+
+          // Aktuelle Position des Elements relativ zum Container
+          const elementRect = element.getBoundingClientRect();
+          const containerRect = treeContainer.getBoundingClientRect();
+
+          // Berechnung des Mausabstands innerhalb des Elements
+          const offsetX = e.clientX - elementRect.left;
+          const offsetY = e.clientY - elementRect.top;
+
+          const onMouseMove = (moveEvent) => {
+            // Berechnung der neuen Position relativ zum Container
+            const newLeft = moveEvent.clientX - containerRect.left - offsetX;
+            const newTop = moveEvent.clientY - containerRect.top - offsetY;
+
+            // Begrenzung der Ornamente innerhalb des Containers
+            const maxLeft = containerRect.width - element.offsetWidth;
+            const maxTop = containerRect.height - element.offsetHeight;
+
+            // Setze die neuen Positionen
+            element.style.left = `${Math.max(0, Math.min(newLeft, maxLeft))}px`;
+            element.style.top = `${Math.max(0, Math.min(newTop, maxTop))}px`;
+          };
+
+          const onMouseUp = () => {
+            // Event-Listener entfernen, sobald die Maus losgelassen wird
+            document.removeEventListener("mousemove", onMouseMove);
+            document.removeEventListener("mouseup", onMouseUp);
+          };
+
+          document.addEventListener("mousemove", onMouseMove);
+          document.addEventListener("mouseup", onMouseUp);
+        });
+      }
+    </script>
+  </body>
+</html>
