@@ -81,75 +81,79 @@
         {
           question: "😮🎄😮🎄",
           answers: [
-            "oh tannenbaum",
             "o tannenbaum",
-            "tannenbaum",
-            "der tannenbaum",
+            "oh tannenbaum",
+            "o tannenbaum, o tannenbaum",
+            "oh tannenbaum, oh tannenbaum",
+            "o tannenbaum o tannenbaum",
+            "oh tannenbaum oh tannenbaum",
           ],
         },
         {
           question: "🤫🌃😇🌃",
           answers: [
             "stille nacht",
-            "stille nacht heilige nacht",
             "stille nacht, heilige nacht",
+            "stille nacht heilige nacht",
             "heilige nacht",
-            "nachtlied",
           ],
         },
         {
           question: "🔙🎄",
           answers: [
             "last christmas",
-            "weihnachtsherz",
-            "kaputtes herz weihnachten",
-            "weihnachten herzschmerz",
+            "last christmas, i gave you my heart",
+            "last christmas i gave you my heart",
           ],
         },
         {
           question: "🔔🔔🔔",
           answers: [
             "jingle bells",
+            "jingle bells, jingle bells",
+            "kling glöckchen klingelingeling",
             "kling glöckchen",
-            "glöckchenlied",
-            "glöckchen",
+            "kling glöckchen, klingelingeling",
           ],
         },
         {
           question: "♾️🎁🫵🏼",
           answers: [
             "all i want for christmas is you",
-            "alles was ich zu weihnachten will bist du",
-            "ich will dich zu weihnachten",
-            "weihnachtsliebe",
+            "all i want for christmas",
+            "all i want for christmas is you by mariah carey",
+            "all i want for christmas, is you",
+            "all i want for christmas is you, by mariah carey",
           ],
         },
         {
           question: "😮🫵🏼🤣😮🫵🏼😇",
           answers: [
             "o du fröhliche",
+            "oh du fröhliche",
+            "o du fröhliche, o du selige",
+            "o du selige",
+            "oh du fröhliche o du selige",
             "o du froehliche",
-            "froehliche",
-            "fröhliche",
-            "weihnachtslied",
+            "oh du froehliche",
           ],
         },
         {
           question: "❄️☃️🌨️",
           answers: [
             "let it snow",
-            "schneelied",
+            "let it snow, let it snow, let it snow",
+            "let it snow let it snow let it snow",
             "lass es schneien",
-            "schneeflockenlied",
           ],
         },
         {
           question: "🚗🏠🎄",
           answers: [
             "driving home for christmas",
-            "weihnachtsheimfahrt",
-            "fahren zu weihnachten",
-            "heimfahrt weihnachten",
+            "i'm driving home for christmas",
+            "home for christmas",
+            "driving home, for christmas",
           ],
         },
         {
@@ -157,13 +161,16 @@
           answers: [
             "fröhliche weihnacht überall",
             "froehliche weihnacht überall",
-            "weihnachtslied überall",
+            "fröhliche weihnacht",
             "weihnacht überall",
+            "froehliche weihnacht, überall",
+            "fröhliche weihnacht, überall",
           ],
         },
         {
           question: "❄️⚪️👗",
           answers: [
+            "schneeflöckchen, weißröckchen",
             "schneeflöckchen weiß röckchen",
             "schnee flöckchen weiß röckchen",
             "schneeflöckchen",
@@ -174,18 +181,25 @@
           question: "🦌🔴🌟",
           answers: [
             "rudolph the red-nosed reindeer",
+            "rudolph the red nosed reindeer",
+            "rudolf the red-nosed reindeer",
+            "rudolf the red nosed reindeer",
             "rudolph das rentier",
+            "rudolf das rentier",
+            "rudolph das kleine rentier",
+            "rudolf das kleine rentier",
             "rudolph mit der roten nase",
+            "rudolf mit der roten nase",
             "rudolph",
+            "rudolf",
           ],
         },
         {
           question: "🎶🎄🇪🇸",
           answers: [
             "feliz navidad",
-            "fröhliche weihnachten auf spanisch",
-            "spanisches weihnachtslied",
-            "weihnachten spanisch",
+            "feliz navidad, prospero año y felicidad",
+            "feliz navidad prospero año y felicidad",
           ],
         },
       ];
@@ -237,18 +251,23 @@
       function handleDay2RightAnswer() {
         const questionDisplay = document.getElementById("questionDisplay");
 
-        // Füge die Animationsklasse hinzu
+        // Prüfen, ob es die letzte Frage ist
+        if (currentQuestionIndex === questions.length - 1) {
+          // Letzte Frage beantwortet, rufe `rightAnswer()` auf
+          rightAnswer();
+          return; // Verlasse die Funktion, um keine weitere Frage zu laden
+        }
+
+        // Wenn es nicht die letzte Frage ist, fahre normal fort
         questionDisplay.classList.add("flash-animation");
 
-        // Entferne die Klasse nach der Animation (0.6 Sekunden)
         setTimeout(() => {
           questionDisplay.classList.remove("flash-animation");
         }, 600);
 
-        // Lade die nächste Frage
-        currentQuestionIndex++;
+        currentQuestionIndex++; // Nächste Frage
         document.getElementById("answerInput").value = ""; // Eingabe zurücksetzen
-        loadDay2Question();
+        loadDay2Question(); // Nächste Frage laden
       }
 
       document.addEventListener("DOMContentLoaded", () => {
