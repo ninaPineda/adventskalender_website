@@ -47,8 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Prüfen, ob das Rätsel in der Zukunft liegt
       if (currentRiddle > currentDay) {
-      showDecPopup("Na! Nicht so hastig! Es ist noch nicht so weit!");
-      return;
+        showDecPopup("Na! Nicht so hastig! Es ist noch nicht so weit!");
+        return;
       }
 
       // Prüfen, ob die vorherigen Rätsel gelöst wurden

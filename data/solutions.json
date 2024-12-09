@@ -65,5 +65,20 @@
       "hauptstadt von portugal",
       "hauptstadt: lissabon"
     ]
+  },
+  {
+    "riddle": 10,
+    "answers": [
+      "wien",
+      "wiener weihnachtsmarkt",
+      "weihnachtsmarkt wien",
+      "wien weihnachtsmarkt",
+      "weihnacht wien",
+      "wiener christkindlmarkt",
+      "christkindlmarkt wien",
+      "wiener christkindlmarkt am rathausplatz",
+      "christkindlmarkt rathausplatz",
+      "rathausplatz wien"
+    ]
   }
 ]
