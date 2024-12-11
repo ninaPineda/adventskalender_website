@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tag 12</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/light-colors.css" />
+    <link rel="stylesheet" href="../css/normalize.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/riddle.css" />
+    <style>
+      .video-container {
+        position: relative;
+        width: 80%;
+        max-width: 600px;
+        margin: 1em auto;
+      }
+
+      video {
+        display: block;
+        width: 100%;
+        border-radius: 8px;
+      }
+
+      .play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.6);
+        border: none;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        color: white;
+        font-size: 1.5em;
+        transition: background-color 0.3s;
+      }
+
+      .play-button:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      #questionContainer {
+        text-align: center;
+        margin-top: 1em;
+      }
+
+      #replayButton {
+        margin-top: 1em;
+        padding: 0.5em 1em;
+        font-size: 1em;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      #replayButton:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="home.html" class="back-button">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+    <h1>Tag 12</h1>
+    <h3>Willkommen! Hier ist dein Rätsel:</h3>
+    <div class="riddle-container">
+      <div id="questionContainer" class="hidden">
+        <p>Wie viele Rentiere sind im Stall?</p>
+        <input
+          type="text"
+          id="answerInput"
+          placeholder="Deine Lösung eingeben"
+        />
+        <button id="checkAnswerButton">Prüfen</button>
+        <button id="replayButton">Video erneut abspielen</button>
+      </div>
+      <div class="video-container" id="videoContainer">
+        <video id="myVideo" width="100%" poster="../assets/poster.png">
+          <source src="../assets/stable.mp4" type="video/mp4" />
+          Dein Browser unterstützt kein HTML5-Video.
+        </video>
+        <button id="playButton" class="play-button">
+          <i class="fas fa-play"></i>
+        </button>
+      </div>
+    </div>
+    <h3 id="attemptDisplay">Versuch 0</h3>
+    <!-- Popup für falsche Antwort -->
+    <div id="errorPopup" class="popup">
+      <div class="popup-content">
+        <p id="popupMessage">Das war leider falsch!</p>
+        <button id="closePopup">Schließen</button>
+      </div>
+    </div>
+
+    <!-- Popup für richtige Antwort -->
+    <div id="successPopup" class="popup">
+      <div class="popup-content">
+        <p id="popupMessage">Richtig! Die Antwort ist korrekt.</p>
+        <a href="./home.html" class="button">Zum Kalender</a>
+      </div>
+    </div>
+
+    <script src="../js/riddle.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const video = document.getElementById("myVideo");
+        const playButton = document.getElementById("playButton");
+        const questionContainer = document.getElementById("questionContainer");
+        const videoContainer = document.getElementById("videoContainer");
+        const answerInput = document.getElementById("answerInput");
+        const checkAnswerButton = document.getElementById("checkAnswerButton");
+        const replayButton = document.getElementById("replayButton");
+
+        // Startet das Video und blendet Play-Button aus
+        playButton.addEventListener("click", () => {
+          if (video.paused) {
+            video.play();
+            playButton.style.display = "none";
+            questionContainer.classList.add("hidden");
+          }
+        });
+
+        // Zeigt die Frage nach dem Videoende
+        video.addEventListener("ended", () => {
+          videoContainer.classList.add("hidden");
+          questionContainer.classList.remove("hidden");
+        });
+
+        // "Video erneut abspielen"-Button
+        replayButton.addEventListener("click", () => {
+          questionContainer.classList.add("hidden");
+          videoContainer.classList.remove("hidden");
+          video.currentTime = 0; // Startet das Video von Anfang
+          video.play();
+          playButton.style.display = "none";
+        });
+      });
+    </script>
+  </body>
+</html>

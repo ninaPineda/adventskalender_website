@@ -105,5 +105,26 @@
       "einen kilo",
       "eins kilo"
     ]
+  },
+  {
+    "riddle": 12,
+    "answers": [
+      "3",
+      "drei",
+      "3 rentiere",
+      "drei rentiere",
+      "3 rentier",
+      "drei rentier",
+      "3 rentiere.",
+      "drei rentiere.",
+      "3 rentier.",
+      "drei rentier.",
+      "es sind 3",
+      "es sind drei",
+      "es sind 3 rentiere",
+      "es sind drei rentiere",
+      "es sind 3 rentier",
+      "es sind drei rentier"
+    ]
   }
 ]
