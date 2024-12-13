@@ -58,6 +58,10 @@ document.getElementById("wrongButton2").addEventListener("click", function () {
   wrongAnswer();
 });
 
+document.getElementById("wrongButton3").addEventListener("click", function () {
+  wrongAnswer();
+});
+
 function wrongAnswer() {
   // Daten aus LocalStorage abrufen und parsen
   const userData = JSON.parse(localStorage.getItem("user"));
