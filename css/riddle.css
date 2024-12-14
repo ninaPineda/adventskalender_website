@@ -11,6 +11,13 @@
         color: #333;
       }
 
+      img {
+        height: 400px;
+        width: 100%; 
+        object-fit: cover; 
+        overflow: hidden;
+      }
+
       /* Container */
       .riddle-container {
         margin-top: 30px;
