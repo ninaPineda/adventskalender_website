@@ -26,5 +26,9 @@
   {
     "username": "coco",
     "password": "passwort"
+  },
+  {
+    "username": "user",
+    "password": "passwort"
   }
 ]
