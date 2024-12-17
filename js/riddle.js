@@ -61,6 +61,12 @@ document.getElementById("wrongButton2").addEventListener("click", function () {
 document.getElementById("wrongButton3").addEventListener("click", function () {
   wrongAnswer();
 });
+document.getElementById("wrongButton4").addEventListener("click", function () {
+  wrongAnswer();
+});
+document.getElementById("wrongButton5").addEventListener("click", function () {
+  wrongAnswer();
+});
 
 function wrongAnswer() {
   // Daten aus LocalStorage abrufen und parsen
