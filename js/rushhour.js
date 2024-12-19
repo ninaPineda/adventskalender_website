@@ -431,21 +431,52 @@ class CanvasDisplay {
     const unit = this.unit;
 
     if (block.color !== null) {
-      const inside = unit * 0.8;
-
       noStroke();
 
       for (let [x, y] of block.shapeCoords()) {
+        // Blockfarbe
         fill(block.color);
         square(x * unit, y * unit, unit);
-        fill(0, 25);
-        square(x * unit + inside, y * unit + inside, unit - 2 * inside);
+
+        // Innerer Schatten (dezent)
+        drawingContext.shadowOffsetX = unit * 0.05; // Horizontaler Schattenversatz
+        drawingContext.shadowOffsetY = unit * 0.05; // Vertikaler Schattenversatz
+        drawingContext.shadowBlur = unit * 0.1; // Weichheit des Schattens
+        drawingContext.shadowColor = "rgba(0, 0, 0, 0.2)"; // Subtiler schwarzer Schatten
+
+        // Fülle den Block erneut, um den Schatten sichtbar zu machen
+        fill(block.color);
+        square(x * unit, y * unit, unit);
+
+        // Schatten zurücksetzen
+        drawingContext.shadowOffsetX = 0;
+        drawingContext.shadowOffsetY = 0;
+        drawingContext.shadowBlur = 0;
+        drawingContext.shadowColor = "transparent";
+
+        // Licht-Effekt (leichter Glanz oben links)
+        fill(255, 255, 255, 30); // Subtil transparentes Weiß
+        beginShape();
+        vertex(x * unit, y * unit); // Oben links
+        vertex((x + 1) * unit, y * unit); // Oben rechts
+        vertex((x + 1) * unit - unit * 0.1, y * unit + unit * 0.1); // Leicht nach innen
+        vertex(x * unit + unit * 0.1, y * unit + unit * 0.1); // Leicht nach innen
+        endShape(CLOSE);
+
+        // Licht-Effekt (leichter Glanz unten rechts)
+        fill(255, 255, 255, 15); // Noch transparenter
+        beginShape();
+        vertex((x + 1) * unit, y * unit); // Oben rechts
+        vertex((x + 1) * unit, (y + 1) * unit); // Unten rechts
+        vertex((x + 1) * unit - unit * 0.1, (y + 1) * unit - unit * 0.1); // Leicht nach innen
+        vertex((x + 1) * unit - unit * 0.1, y * unit + unit * 0.1); // Leicht nach innen
+        endShape(CLOSE);
       }
 
       if (block.selectable) {
-        // Contour of block
-        stroke(0, 0, 0, 150);
-        strokeWeight(unit * 0.04);
+        // Kontur des Blocks
+        stroke(0, 0, 0, 100);
+        strokeWeight(unit * 0.02);
         rect(
           block.x * unit,
           block.y * unit,
@@ -490,7 +521,7 @@ function createCarsBoard(maxWidth) {
       x: 3,
       y: 1,
       shape: vertCar,
-      color: "#78B53E", // light green
+      color: "#9E3D1A", // Weihnachtsgrün (primary-color)
       possibleMoves: Direction.vertical(),
     }),
 
@@ -498,7 +529,7 @@ function createCarsBoard(maxWidth) {
       x: 4,
       y: 1,
       shape: horiTruck,
-      color: "#FFC600", // yellow
+      color: "#D9BFB1", // Weihnachtliches Rot (secondary-color)
       possibleMoves: Direction.horizontal(),
     }),
 
@@ -506,7 +537,7 @@ function createCarsBoard(maxWidth) {
       x: 1,
       y: 2,
       shape: vertCar,
-      color: "#FF8601", // orange
+      color: "#9F8446", // Tertiary Color
       possibleMoves: Direction.vertical(),
     }),
 
@@ -514,7 +545,7 @@ function createCarsBoard(maxWidth) {
       x: 4,
       y: 2,
       shape: vertTruck,
-      color: "#AE7ACF", // light purple
+      color: "#782e13", // Weihnachtsgrün dunkel (primary-color-dark)
       possibleMoves: Direction.vertical(),
     }),
 
@@ -522,7 +553,7 @@ function createCarsBoard(maxWidth) {
       x: 5,
       y: 2,
       shape: horiCar,
-      color: "#45B5FF", // light blue
+      color: "#DFD9CC", // Accent Color
       possibleMoves: Direction.horizontal(),
     }),
 
@@ -530,7 +561,7 @@ function createCarsBoard(maxWidth) {
       x: 2,
       y: 3,
       shape: horiCar,
-      color: "#FA3800", // red
+      color: "#FA3800", // Rot (bleibt gleich)
       possibleMoves: Direction.horizontal(),
       tag: "red",
     }),
@@ -539,7 +570,7 @@ function createCarsBoard(maxWidth) {
       x: 2,
       y: 4,
       shape: vertCar,
-      color: "#FD8D9D", // pink
+      color: "#9F8446", // Tertiary Color
       possibleMoves: Direction.vertical(),
     }),
 
@@ -547,7 +578,7 @@ function createCarsBoard(maxWidth) {
       x: 5,
       y: 4,
       shape: horiCar,
-      color: "#6551C0", // dark purple
+      color: "#782e13", // Weihnachtsgrün dunkel (primary-color-dark)
       possibleMoves: Direction.horizontal(),
     }),
 
@@ -555,7 +586,7 @@ function createCarsBoard(maxWidth) {
       x: 1,
       y: 5,
       shape: vertCar,
-      color: "#1D831F", // dark green
+      color: "#9E3D1A", // Weihnachtsgrün (primary-color)
       possibleMoves: Direction.vertical(),
     }),
 
@@ -563,7 +594,7 @@ function createCarsBoard(maxWidth) {
       x: 3,
       y: 5,
       shape: horiCar,
-      color: "#233444", // dark grey
+      color: "#9F8446", // Tertiary Color
       possibleMoves: Direction.horizontal(),
     }),
 
@@ -571,7 +602,7 @@ function createCarsBoard(maxWidth) {
       x: 6,
       y: 5,
       shape: vertCar,
-      color: "#D0B75D", // dark blue
+      color: "#D9BFB1", // Weihnachtliches Rot (secondary-color)
       possibleMoves: Direction.vertical(),
     }),
 
@@ -579,7 +610,7 @@ function createCarsBoard(maxWidth) {
       x: 2,
       y: 6,
       shape: horiTruck,
-      color: "#2D69D9", // beige
+      color: "#DFD9CC", // Accent Color
       possibleMoves: Direction.horizontal(),
     }),
   ];
@@ -597,7 +628,7 @@ function createCarsBoard(maxWidth) {
       [1, 0, 0, 0, 0, 0, 0, 1, 1],
       [1, 1, 1, 1, 1, 1, 1, 1, 1],
     ],
-    color: "DarkSlateGrey",
+    color: "#ACACAC",
     selectable: false,
   });
 
@@ -647,7 +678,7 @@ function draw() {
   textAlign(RIGHT, CENTER);
   textSize(display.unit * 0.3);
   textFont("monospace");
-  fill("#3EA3E6");
+  fill("#ffffff");
   noStroke();
   text(moves, width / 2 + unit * 0.4, unit * 0.52);
 }
