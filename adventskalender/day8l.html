@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tag 8</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/light-colors.css" />
+    <link rel="stylesheet" href="../css/normalize.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/riddle.css" />
+  </head>
+  <body>
+    <a href="day8s.html" class="back-button">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+    <h1>Tag 8</h1>
+    <h3>Hier ist die Lösung:</h3>
+    <div class="riddle-container">
+      <p><strong>Das Auto ist in Box 3!</strong></p>
+
+      <div class="riddle-item">
+        <img class="riddleImage" src="../assets/present.png" alt="Present" />
+        <p>Das Auto ist in dieser Box.</p>
+      </div>
+
+      <div class="riddle-item">
+        <img class="riddleImage" src="../assets/present.png" alt="Present" />
+        <p>Das Auto ist nicht in dieser Box.</p>
+      </div>
+
+      <div class="riddle-item">
+        <img class="riddleImage" src="../assets/present.png" alt="Present" />
+        <p>Das Auto ist in Box 1.</p>
+      </div>
+
+      <h2>Erklärung:</h2>
+      <p>
+        Nur eine der Aussagen kann wahr sein. Wenn wir die Aussagen durchgehen,
+        finden wir die Lösung:
+      </p>
+      <ul>
+        <li>
+          <strong>Box 1:</strong> Wenn die Aussage "Das Auto ist in dieser Box"
+          wahr wäre, müsste die Aussage "Das Auto ist in Box 1" ebenfalls wahr
+          sein. Das wäre ein Widerspruch, da nur eine Aussage wahr sein darf.
+        </li>
+        <li>
+          <strong>Box 2:</strong> Wenn die Aussage "Das Auto ist nicht in dieser
+          Box" wahr wäre, könnten die anderen beiden Aussagen (über Box 1 und 3)
+          ebenfalls nicht gleichzeitig falsch sein. Auch hier ergibt sich ein
+          Widerspruch.
+        </li>
+        <li>
+          <strong>Box 3:</strong> Die Aussage "Das Auto ist in Box 1" ist
+          falsch. Die Aussage "Das Auto ist nicht in dieser Box" (Box 2) ist
+          ebenfalls falsch. Das bedeutet, die einzige wahre Aussage ist, dass
+          das Auto in Box 3 ist.
+        </li>
+      </ul>
+      <p>
+        Somit ist die einzig mögliche Lösung: Das Auto befindet sich in Box 3.
+      </p>
+    </div>
+  </body>
+</html>

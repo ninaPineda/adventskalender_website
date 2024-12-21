@@ -18,6 +18,11 @@
         overflow: hidden;
       }
 
+      li {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        line-height: 1.5;
+      }
       /* Container */
       .riddle-container {
         margin-top: 30px;

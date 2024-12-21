@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tag 22</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/light-colors.css" />
+    <link rel="stylesheet" href="../css/normalize.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/riddle.css" />
+  </head>
+  <body>
+    <a href="day22l.html" class="help-button">
+      <i class="fas fa-question"></i>
+    </a>
+    <a href="allriddles.html" class="back-button">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+    <h1>Tag 22</h1>
+    <div class="riddle-container">
+      <img src="../assets/day22.png" />
+      <p>
+        Die Wichtel Tilli und Fips holen Wunschzettel aus einem entfernten Dorf.
+        Auf dem Hinweg fährt Tilli 290 km, Fips den Rest.<br />
+        Zurück fährt Fips 240 km, Tilli den Rest. <br />
+        <br />
+        <strong
+          >Frage: Wie viele Kilometer Unterschied gibt es zwischen den beiden?
+          🎄🚗</strong
+        >
+      </p>
+      <input type="text" id="answerInput" placeholder="Deine Lösung eingeben" />
+      <button id="checkAnswerButton">Prüfen</button>
+    </div>
+    <h3 id="attemptDisplay">Versuch 0</h3>
+    <!-- Popup für falsche Antwort -->
+    <div id="errorPopup" class="popup">
+      <div class="popup-content">
+        <p id="popupMessage">Das war leider falsch!</p>
+        <button id="closePopup">Schließen</button>
+      </div>
+    </div>
+
+    <!-- Popup für richtige Antwort -->
+    <div id="successPopup" class="popup">
+      <div class="popup-content">
+        <p id="popupMessage">Richtig! Die Antwort ist korrekt.</p>
+        <a href="./home.html" class="button">Zum Kalender</a>
+      </div>
+    </div>
+
+    <script src="../js/riddle.js"></script>
+  </body>
+</html>

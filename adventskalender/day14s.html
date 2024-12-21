@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tag 14</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/light-colors.css" />
+    <link rel="stylesheet" href="../css/normalize.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/riddle.css" />
+    <style>
+      .image-buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 Spalten */
+        gap: 5px; /* Abstand zwischen den Bildern */
+        justify-items: center;
+        align-items: center;
+        max-width: 100%; /* Verhindert das Überlaufen des Containers */
+      }
+
+      .image-button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        max-width: 100%; /* Verhindert das Überlaufen */
+      }
+
+      .image-button img {
+        max-width: 100%;
+        height: auto;
+        max-height: 150px; /* Begrenzung der Bildhöhe */
+        object-fit: contain; /* Verhindert verzerrte Bilder */
+        border-radius: 5px; /* Optional, abgerundete Ecken */
+        transition: transform 0.3s ease; /* Animation bei Hover */
+      }
+
+      .image-button img:hover {
+        transform: scale(1.1); /* Vergrößert das Bild beim Hover leicht */
+      }
+    </style>
+  </head>
+  <body>
+    <a href="day14l.html" class="help-button">
+      <i class="fas fa-question"></i>
+    </a>
+    <a href="allriddles.html" class="back-button">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+    <h1>Tag 14</h1>
+    <h3>Willkommen! Hier ist dein Rätsel:</h3>
+    <div class="riddle-container">
+      <p>
+        Drei der vier Bilder unten sind genau gleich, aber in verschiedenen
+        Ausrichtungen gedreht. Kannst du das Bild finden, das nicht dazu passt?
+      </p>
+      <div class="image-buttons">
+        <button id="wrongButton1" class="image-button">
+          <img src="../assets/drehriddle/1.png" alt="Bild A" />
+        </button>
+        <button id="wrongButton2" class="image-button">
+          <img src="../assets/drehriddle/2.png" alt="Bild B" />
+        </button>
+        <button id="rightButton" class="image-button">
+          <img src="../assets/drehriddle/3.png" alt="Bild C" />
+        </button>
+        <button id="wrongButton3" class="image-button">
+          <img src="../assets/drehriddle/4.png" alt="Bild D" />
+        </button>
+      </div>
+    </div>
+    <h3 id="attemptDisplay">Versuch 0</h3>
+    <!-- Popup für falsche Antwort -->
+    <div id="errorPopup" class="popup">
+      <div class="popup-content">
+        <p id="popupMessage">Das war leider falsch!</p>
+        <button id="closePopup">Schließen</button>
+      </div>
+    </div>
+
+    <!-- Popup für richtige Antwort -->
+    <div id="successPopup" class="popup">
+      <div class="popup-content">
+        <p id="popupMessage">Richtig! Die Antwort ist korrekt.</p>
+        <a href="./home.html" class="button">Zum Kalender</a>
+      </div>
+    </div>
+
+    <script src="../js/riddle.js"></script>
+  </body>
+</html>

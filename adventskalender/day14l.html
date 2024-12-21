@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tag 14 Lösung</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/light-colors.css" />
+    <link rel="stylesheet" href="../css/normalize.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/riddle.css" />
+    <style>
+      .image-buttons {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 Spalten */
+        gap: 5px; /* Abstand zwischen den Bildern */
+        justify-items: center;
+        align-items: center;
+        max-width: 100%; /* Verhindert das Überlaufen des Containers */
+      }
+
+      .image-button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        max-width: 100%; /* Verhindert das Überlaufen */
+      }
+
+      .image-button img {
+        max-width: 100%;
+        height: auto;
+        max-height: 150px; /* Begrenzung der Bildhöhe */
+        object-fit: contain; /* Verhindert verzerrte Bilder */
+        border-radius: 5px; /* Optional, abgerundete Ecken */
+        transition: transform 0.3s ease; /* Animation bei Hover */
+      }
+
+      .image-button img:hover {
+        transform: scale(1.1); /* Vergrößert das Bild beim Hover leicht */
+      }
+    </style>
+  </head>
+  <body>
+    <a href="day14s.html" class="back-button">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+    <h1>Tag 14 Lösung</h1>
+    <h3>Hier ist die Lösung:</h3>
+    <div class="riddle-container">
+      <p>Die Lösung ist <strong>Bild C</strong>. 🎉</p>
+      <p>
+        <strong>Erklärung:</strong><br />
+        Bild C unterscheidet sich von den anderen Bildern, da die rosa Karte um
+        <strong>180° gedreht</strong> und weiter vorne ist, als bei den anderen
+        Bildern.
+      </p>
+      <div class="image-buttons">
+        <button class="image-button">
+          <img src="../assets/drehriddle/1.png" alt="Bild A" />
+        </button>
+        <button class="image-button">
+          <img src="../assets/drehriddle/2.png" alt="Bild B" />
+        </button>
+        <button class="image-button">
+          <img
+            src="../assets/drehriddle/3.png"
+            alt="Bild C"
+            style="transform: rotate(180deg)"
+          />
+        </button>
+        <button class="image-button">
+          <img src="../assets/drehriddle/4.png" alt="Bild D" />
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

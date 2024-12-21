@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tag 9</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/light-colors.css" />
+    <link rel="stylesheet" href="../css/normalize.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/riddle.css" />
+    <style>
+      /* Alte Frage nach links wischen */
+      @keyframes slideOut {
+        0% {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(-100%);
+          opacity: 0;
+        }
+      }
+
+      /* Neue Frage von rechts reinwischen */
+      @keyframes slideIn {
+        0% {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      .slide-out {
+        animation: slideOut 0.5s ease-in-out;
+      }
+
+      .slide-in {
+        animation: slideIn 0.5s ease-in-out;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="day9l.html" class="help-button">
+      <i class="fas fa-question"></i>
+    </a>
+    <a href="allriddles.html" class="back-button">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+    <h1>Tag 9</h1>
+    <h3>Willkommen! Hier ist dein Rätsel:</h3>
+    <div class="riddle-container">
+      <p>Welches Lied wird hier gesucht:</p>
+      <p id="questionDisplay">Frage wird geladen...</p>
+      <input type="text" id="answerInput" placeholder="Deine Lösung eingeben" />
+      <button id="checkAnswerButton">Prüfen</button>
+    </div>
+    <h3 id="progressDisplay">Frage 1 von X</h3>
+    <h3 id="attemptDisplay">Versuch 0</h3>
+    <!-- Popup für falsche Antwort -->
+    <div id="errorPopup" class="popup">
+      <div class="popup-content">
+        <p id="popupMessage">Das war leider falsch!</p>
+        <button id="closePopup">Schließen</button>
+      </div>
+    </div>
+
+    <!-- Popup für richtige Antwort -->
+    <div id="successPopup" class="popup">
+      <div class="popup-content">
+        <p id="popupMessage">Richtig! Die Antwort ist korrekt.</p>
+        <a href="./home.html" class="button">Zum Kalender</a>
+      </div>
+    </div>
+
+    <script>
+      const questions = [
+        {
+          question: "😮🎄😮🎄",
+          answers: [
+            "o tannenbaum",
+            "oh tannenbaum",
+            "o tannenbaum, o tannenbaum",
+            "oh tannenbaum, oh tannenbaum",
+            "o tannenbaum o tannenbaum",
+            "oh tannenbaum oh tannenbaum",
+          ],
+        },
+        {
+          question: "🤫🌃😇🌃",
+          answers: [
+            "stille nacht",
+            "stille nacht, heilige nacht",
+            "stille nacht heilige nacht",
+            "heilige nacht",
+          ],
+        },
+        {
+          question: "🔙🎄",
+          answers: [
+            "last christmas",
+            "last christmas, i gave you my heart",
+            "last christmas i gave you my heart",
+          ],
+        },
+        {
+          question: "🔔🔔🔔",
+          answers: [
+            "jingle bells",
+            "jingle bells, jingle bells",
+            "kling glöckchen klingelingeling",
+            "kling glöckchen",
+            "kling glöckchen, klingelingeling",
+          ],
+        },
+        {
+          question: "♾️🎁🫵🏼",
+          answers: [
+            "all i want for christmas is you",
+            "all i want for christmas",
+            "all i want for christmas is you by mariah carey",
+            "all i want for christmas, is you",
+            "all i want for christmas is you, by mariah carey",
+          ],
+        },
+        {
+          question: "😮🫵🏼🤣😮🫵🏼😇",
+          answers: [
+            "o du fröhliche",
+            "oh du fröhliche",
+            "o du fröhliche, o du selige",
+            "o du selige",
+            "oh du fröhliche o du selige",
+            "o du froehliche",
+            "oh du froehliche",
+          ],
+        },
+        {
+          question: "❄️☃️🌨️",
+          answers: [
+            "let it snow",
+            "let it snow, let it snow, let it snow",
+            "let it snow let it snow let it snow",
+            "lass es schneien",
+          ],
+        },
+        {
+          question: "🚗🏠🎄",
+          answers: [
+            "driving home for christmas",
+            "i'm driving home for christmas",
+            "home for christmas",
+            "driving home, for christmas",
+          ],
+        },
+        {
+          question: "🤣🎄♾️",
+          answers: [
+            "fröhliche weihnacht überall",
+            "froehliche weihnacht überall",
+            "fröhliche weihnacht",
+            "weihnacht überall",
+            "froehliche weihnacht, überall",
+            "fröhliche weihnacht, überall",
+          ],
+        },
+        {
+          question: "❄️⚪️👗",
+          answers: [
+            "schneeflöckchen, weißröckchen",
+            "schneeflöckchen weiß röckchen",
+            "schnee flöckchen weiß röckchen",
+            "schneeflöckchen",
+            "schnee flöckchen",
+          ],
+        },
+        {
+          question: "🦌🔴🌟",
+          answers: [
+            "rudolph the red-nosed reindeer",
+            "rudolph the red nosed reindeer",
+            "rudolf the red-nosed reindeer",
+            "rudolf the red nosed reindeer",
+            "rudolph das rentier",
+            "rudolf das rentier",
+            "rudolph das kleine rentier",
+            "rudolf das kleine rentier",
+            "rudolph mit der roten nase",
+            "rudolf mit der roten nase",
+            "rudolph",
+            "rudolf",
+          ],
+        },
+        {
+          question: "🎶🎄🇪🇸",
+          answers: [
+            "feliz navidad",
+            "feliz navidad, prospero año y felicidad",
+            "feliz navidad prospero año y felicidad",
+          ],
+        },
+      ];
+
+      let currentQuestionIndex = 0;
+
+      function loadDay2Question() {
+        const questionDisplay = document.getElementById("questionDisplay");
+        const progressDisplay = document.getElementById("progressDisplay");
+
+        // Animation für alte Frage
+        questionDisplay.classList.add("slide-out");
+
+        // Nach Ende der Animation: Neue Frage laden
+        setTimeout(() => {
+          questionDisplay.classList.remove("slide-out"); // Entferne alte Animation
+          questionDisplay.textContent =
+            questions[currentQuestionIndex].question; // Neue Frage setzen
+          questionDisplay.classList.add("slide-in"); // Neue Animation hinzufügen
+
+          // Entferne die "slide-in"-Klasse nach der Animation
+          setTimeout(() => {
+            questionDisplay.classList.remove("slide-in");
+          }, 500);
+        }, 500); // Warte, bis die "slide-out"-Animation abgeschlossen ist
+
+        // Fortschrittsanzeige aktualisieren
+        progressDisplay.textContent = `Frage ${currentQuestionIndex + 1} von ${
+          questions.length
+        }`;
+      }
+
+      // Antwortprüfung für diese Seite
+      document
+        .getElementById("checkAnswerButton")
+        .addEventListener("click", () => {
+          const userAnswer = document
+            .getElementById("answerInput")
+            .value.trim()
+            .toLowerCase();
+          const correctAnswers = questions[currentQuestionIndex].answers;
+
+          if (correctAnswers.includes(userAnswer)) {
+            handleDay2RightAnswer();
+          } else {
+            wrongAnswer();
+          }
+        });
+      function handleDay2RightAnswer() {
+        const questionDisplay = document.getElementById("questionDisplay");
+
+        // Prüfen, ob es die letzte Frage ist
+        if (currentQuestionIndex === questions.length - 1) {
+          // Letzte Frage beantwortet, rufe `rightAnswer()` auf
+          rightAnswer();
+          return; // Verlasse die Funktion, um keine weitere Frage zu laden
+        }
+
+        // Wenn es nicht die letzte Frage ist, fahre normal fort
+        questionDisplay.classList.add("flash-animation");
+
+        setTimeout(() => {
+          questionDisplay.classList.remove("flash-animation");
+        }, 600);
+
+        currentQuestionIndex++; // Nächste Frage
+        document.getElementById("answerInput").value = ""; // Eingabe zurücksetzen
+        loadDay2Question(); // Nächste Frage laden
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        loadDay2Question();
+      });
+
+      function wrongAnswer() {
+        // Daten aus LocalStorage abrufen und parsen
+        const userData = JSON.parse(localStorage.getItem("user"));
+        userData.tries = parseInt(userData.tries) + 1;
+        // Aktualisierte Daten zurück in LocalStorage speichern
+        localStorage.setItem("user", JSON.stringify(userData));
+        showPopup("Das war leider falsch! Versuch es nochmal.", "errorPopup");
+        updateAttemptDisplay();
+      }
+
+      function rightAnswer() {
+        if (localStorage.getItem("loggedIn")) {
+          const userDataRaw = localStorage.getItem("user");
+          let userData;
+          try {
+            userData = userDataRaw ? JSON.parse(userDataRaw) : null;
+          } catch (e) {
+            console.error("Fehler beim Parsen von LocalStorage-Daten:", e);
+            return;
+          }
+
+          if (!userData) {
+            console.error("Benutzerdaten nicht gefunden.");
+            return;
+          }
+
+          showPopup(
+            "Super du hast dieses Rätsel mit " +
+              userData.tries +
+              " Versuchen gelöst.",
+            "successPopup"
+          );
+
+          //Daten aktualisieren
+          userData.finishedRiddles = userData.currentRiddle;
+          userData.allTries = userData.allTries + userData.tries;
+          userData.tries = 1;
+
+          // Speichere aktualisierte Daten
+          localStorage.setItem("user", JSON.stringify(userData));
+        } else {
+          console.error("Benutzer ist nicht eingeloggt.");
+        }
+
+        // Weiterleitung zur Home-Seite
+      }
+
+      // Funktion, um das Popup zu zeigen
+      function showPopup(message, id) {
+        const popup = document.getElementById(id);
+        const popupMessage = document.getElementById("popupMessage");
+        popupMessage.textContent = message; // Nachricht setzen
+        popup.style.display = "flex"; // Popup sichtbar machen
+      }
+
+      // Funktion, um das Popup zu schließen
+      function closePopup() {
+        const popup = document.getElementById("errorPopup");
+        popup.style.display = "none"; // Popup verstecken
+      }
+
+      function updateAttemptDisplay() {
+        const userDataRaw = localStorage.getItem("user");
+        const attemptDisplay = document.getElementById("attemptDisplay"); // Element holen
+
+        if (!userDataRaw) {
+          console.error("Benutzerdaten nicht im LocalStorage gefunden.");
+          attemptDisplay.textContent = "Versuch 0";
+          return;
+        }
+
+        try {
+          const userData = JSON.parse(userDataRaw);
+          if (userData.tries !== undefined) {
+            attemptDisplay.textContent = `Versuch ${userData.tries}`;
+          } else {
+            console.error("Versuche nicht definiert in Benutzerdaten.");
+            attemptDisplay.textContent = "Versuch 0";
+          }
+        } catch (e) {
+          console.error("Fehler beim Parsen von LocalStorage-Daten:", e);
+          attemptDisplay.textContent = "Versuch 0";
+        }
+      }
+
+      // Event-Listener für den Schließen-Button
+      document
+        .getElementById("closePopup")
+        .addEventListener("click", closePopup);
+    </script>
+  </body>
+</html>
