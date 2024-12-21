@@ -223,5 +223,19 @@
       "4 = v",
       "4 = V"
     ]
+  },
+  {
+    "riddle": 21,
+    "answers": [
+      "3",
+      "3.",
+      "drei",
+      "drei.",
+      "03",
+      "03.",
+      "drei geschenke",
+      "3 geschenke",
+      "03 geschenke"
+    ]
   }
 ]
