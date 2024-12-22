@@ -269,5 +269,39 @@
       "es sind ein hundert",
       "es sind ein hundert kilometer"
     ]
+  },
+  {
+    "riddle": 23,
+    "answers": [
+      "4",
+      "vier",
+      "4 mal",
+      "vier mal",
+      "viermal",
+      "viermal.",
+      "vier mal so groß",
+      "vier mal größer",
+      "vierfach",
+      "4fach",
+      "vierfach so groß",
+      "vierfach.",
+      "4fach so groß",
+      "4 mal so groß",
+      "vier mal so groß wie das andere",
+      "vier mal größer als das andere",
+      "viermal größer als das andere",
+      "vier mal so groß wie",
+      "vier mal größer als",
+      "vierfach größer",
+      "vierfach größer als",
+      "vier mal so groß wie das rote",
+      "viermal so groß wie das rote",
+      "vier mal größer als das rote",
+      "viermal größer als das rote",
+      "vier mal so groß wie das rote quadrat",
+      "viermal so groß wie das rote quadrat",
+      "vier mal größer als das rote quadrat",
+      "viermal größer als das rote quadrat"
+    ]
   }
 ]
