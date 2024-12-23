@@ -9,7 +9,7 @@ function Tile(x) {
   this.h = 100;
   this.x = x;
   this.y = -this.h;
-  this.moveSpeed = 4;
+  this.moveSpeed = 5;
 
   // Farben definieren
   const colors = [
