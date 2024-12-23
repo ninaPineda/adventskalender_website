@@ -82,16 +82,22 @@ function draw() {
   }
 }
 
-function mousePressed() {
+function touchStarted() {
   for (let i = tiles.length - 1; i >= 0; i--) {
+    // Überprüft, ob die Berührung auf einem Tile ist
     if (tiles[i].clicked(mouseX, mouseY)) {
-      tiles.splice(i, 1);
-      removedTiles++;
-      checkWinCondition();
-      return;
+      tiles.splice(i, 1); // Entfernt das Tile
+      removedTiles++; // Erhöht die Anzahl der entfernten Tiles
+      checkWinCondition(); // Überprüft, ob der Spieler gewonnen hat
+      return; // Beendet die Schleife, wenn ein Tile getroffen wurde
     }
   }
-  //gameOver();
+  // gameOver(); // Optional: Game Over bei Berührung außerhalb eines Tiles
+}
+
+// mousePressed bleibt bestehen, falls jemand mit Maus spielt
+function mousePressed() {
+  touchStarted(); // Ruft die gleiche Logik auf wie bei Touch-Ereignissen
 }
 
 function checkWinCondition() {
